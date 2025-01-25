@@ -29,6 +29,10 @@ public class AudioDetector
     
     public float GetMicrophoneLoudness(int index)
     {
+        if (microphoneClip == null)
+        {
+            return 0;
+        }
         return GetLoudness(Microphone.GetPosition(Microphone.devices[index]), microphoneClip);
     }
 

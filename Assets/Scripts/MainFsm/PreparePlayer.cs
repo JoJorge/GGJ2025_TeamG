@@ -9,7 +9,7 @@ namespace  CliffLeeCL
             var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Debug);
             var player = GameObject.Instantiate<BasePlayer>(playerPrefab);
             player.SetCamera(false);
-            var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Debug);
+            var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Local);
             var inputCtrl = GameObject.Instantiate<BaseInputController>(inputCtrlPrefab);
             inputCtrl.SetPlayer(player);
         }

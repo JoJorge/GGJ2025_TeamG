@@ -8,7 +8,7 @@ public class InputCtrlConfig : ScriptableObject
 {
     public enum InputCtrlType
     {
-        Normal,
+        Local,
         Net,
         Debug
     }
