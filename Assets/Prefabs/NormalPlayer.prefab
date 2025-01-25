@@ -72,7 +72,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 7456080920841177188}
-  jumpScale: 10
+  gravity: 2
+  jumpScale: 0.5
+  flySpeed: 10
 --- !u!1 &7338123658397880741
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,12 +5,13 @@ public class NormalPlayer : BasePlayer
 {
     private const float MAX_TURN_VERTICAL = 30;
     
-    private const float GRAVITY = 9.8f;
-    
     private const float MAX_FALL_SPEED = 10;
 
+    [SerializeField]
+    private float gravity = 9.8f;
+    
     [SerializeField] 
-    private float jumpScale = 10;
+    private float jumpScale = 5f;
 
     [SerializeField]
     private float flySpeed = 10f;
@@ -37,12 +38,19 @@ public class NormalPlayer : BasePlayer
         // vertical move
         if (!isGrounded)
         {
-            verticalSpeed -= GRAVITY * Time.fixedDeltaTime;
+            verticalSpeed -= gravity * Time.fixedDeltaTime;
             if (verticalSpeed < -MAX_FALL_SPEED)
             {
                 verticalSpeed = -MAX_FALL_SPEED;
             }
+            var prvY = transform.position.y;
             controller.Move(Vector3.up * verticalSpeed);
+            var nowY = transform.position.y;
+            if (verticalSpeed < 0 && prvY - nowY < 1e-3f)
+            {
+                isGrounded = true;
+                verticalSpeed = 0;
+            }
         }
         else
         {
@@ -76,24 +84,6 @@ public class NormalPlayer : BasePlayer
             {
                 camera.transform.Rotate(Vector3.right, realTurnSpeed);
             }
-        }
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = true;
-            // reset vertical speed and height
-            verticalSpeed = 0;
-        }
-    }
-    
-    private void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = false;
         }
     }
 
