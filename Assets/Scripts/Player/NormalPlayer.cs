@@ -9,9 +9,12 @@ public class NormalPlayer : BasePlayer
     
     private const float MAX_FALL_SPEED = 10;
     
-    protected Vector3 moveSpeed = Vector3.zero;
+    [SerializeField]
+    private float jumpScale = 10;
+    
+    private Vector3 moveSpeed = Vector3.zero;
 
-    protected Vector2 turnSpeed;
+    private Vector2 turnSpeed;
     
     private bool isGrounded = false;
     
@@ -48,9 +51,10 @@ public class NormalPlayer : BasePlayer
         {
             return;
         }
+
         if (turnSpeed.x != 0)
         {
-            camera.transform.Rotate(Vector3.up, turnSpeed.x * Time.fixedDeltaTime);
+            transform.Rotate(Vector3.up, turnSpeed.x * Time.fixedDeltaTime);
         }
         if (turnSpeed.y != 0)
         {
@@ -63,7 +67,7 @@ public class NormalPlayer : BasePlayer
             {
                 nowAngle += 360;
             }
-            var realTurnSpeed = turnSpeed.y * Time.fixedDeltaTime;
+            var realTurnSpeed = -turnSpeed.y * Time.fixedDeltaTime;
             realTurnSpeed = Mathf.Clamp(realTurnSpeed, -MAX_TURN_VERTICAL - nowAngle, MAX_TURN_VERTICAL - nowAngle);
             if (Mathf.Abs(realTurnSpeed) > 1e-3f)
             {
@@ -114,7 +118,7 @@ public class NormalPlayer : BasePlayer
     {
         if (isGrounded)
         {
-            verticalSpeed = 5;
+            verticalSpeed = jumpScale;
             isGrounded = false;
         }
     }
@@ -122,7 +126,7 @@ public class NormalPlayer : BasePlayer
     public override void ShootBubble(float size)
     {
         var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
-        var bubble = Instantiate(bubblePrefab, transform.position, transform.rotation) as Bubble;
+        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), transform.rotation) as Bubble;
         bubble.SetSize(size);
         bubble.Fly(transform.forward, 5);
     }
@@ -130,7 +134,12 @@ public class NormalPlayer : BasePlayer
     public override void ShootAttack()
     {
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
-        var attack = Instantiate(attackPrefab, transform.position, transform.rotation) as Attack;
+        var attack = Instantiate(attackPrefab, GetSpawnPosition(), transform.rotation) as Attack;
         attack.Fly(transform.forward, 10);
+    }
+    
+    public Vector3 GetSpawnPosition()
+    {
+        return transform.position + camera.transform.forward * 1.5f;
     }
 }

@@ -15,7 +15,7 @@ public abstract class BaseItem : MonoBehaviour
         }
     }
 
-    public void Fly(Vector3 direction, float speed)
+    public virtual void Fly(Vector3 direction, float speed)
     {
         transform.rotation.SetLookRotation(direction, Vector3.up);
         flySpeed = speed;
