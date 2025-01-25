@@ -1,6 +1,7 @@
 using CliffLeeCL;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LocalInputController : BaseInputController
 {
@@ -11,7 +12,8 @@ public class LocalInputController : BaseInputController
     public float loudnessScalar = 10;
     [ShowIf("useMicrophone")]
     public float loudnessThreshold = 0.5f;
-    public float turnScale = 1;
+    public float moveScalar = 1;
+    public float turnScalar = 1;
     
     private InputSystem_Actions inputActions;
     private AudioDetector audioDetector = new();
@@ -43,8 +45,8 @@ public class LocalInputController : BaseInputController
 
     void Update()
     {
-        player.StartMove(inputActions.Player.Move.ReadValue<Vector2>());
-        player.StartTurn(inputActions.Player.Look.ReadValue<Vector2>() * turnScale);
+        player.StartMove(inputActions.Player.Move.ReadValue<Vector2>() * moveScalar);
+        player.StartTurn(inputActions.Player.Look.ReadValue<Vector2>() * turnScalar);
         
         if (inputActions.Player.Jump.triggered)
         {
