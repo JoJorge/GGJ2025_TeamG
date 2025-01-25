@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 
 namespace CliffLeeCL
@@ -13,12 +14,20 @@ namespace CliffLeeCL
         /// </summary>
         public TextMeshProUGUI roundTimeText;
 
+        private void Start()
+        {
+            roundTimeText.text = TimeToString(GameCore.Instance.matchRoundTime);
+        }
+
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
         /// </summary>
-        void Update()
+        private void Update()
         {
-            roundTimeText.text = TimeToString(GameManager.Instance.roundTime - GameManager.Instance.roundTimer.CurrentTime);
+            if (GameCore.Instance.matchStartTimer !=null)
+            {
+                roundTimeText.text = TimeToString(GameCore.Instance.matchRoundTime - GameCore.Instance.matchRoundTimer.CurrentTime);
+            }
         }
 
         /// <summary>

@@ -10,5 +10,7 @@ public class MainFsm : StateMachine<State<GameCore>, GameCore>
         AddState("Entry", context);
         AddState("WaitPlayer", context);
         AddState("PreparePlayer", context);
+        AddState("MatchProcess", context);
+        AddState("MatchOver", context);
     }
 }

@@ -27,6 +27,7 @@ namespace  CliffLeeCL
             }
 
             inputCtrl.SetPlayer(player);
+            stateContext.SwitchState("MatchProcess");
         }
 
         public override void UpdateState()
