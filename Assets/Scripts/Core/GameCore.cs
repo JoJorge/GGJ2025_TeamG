@@ -11,7 +11,9 @@ public class GameCore : MonoBehaviour, IContext
     [SerializeField]
     private NetworkManager networkManager;
 
-
+    [SerializeField]
+    private bool isUseNetwork = false;
+    
     private MainFsm mainFsm = null;
     
     // singleton
@@ -26,6 +28,7 @@ public class GameCore : MonoBehaviour, IContext
 
     public NetworkRunner NetworkRunner => networkRunner;
     public NetworkManager NetworkManager => networkManager;
+    public bool IsUseNetwork => isUseNetwork;
 
     private void Awake()
     {
@@ -38,6 +41,8 @@ public class GameCore : MonoBehaviour, IContext
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        networkRunner.gameObject.SetActive(isUseNetwork);
+        networkManager.gameObject.SetActive(isUseNetwork);
         mainFsm.SetInitialState("Entry");
     }
 

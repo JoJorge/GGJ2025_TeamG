@@ -16,6 +16,7 @@ public abstract class BasePlayer : MonoBehaviour
         {
             camera = GetComponentInChildren<Camera>();
         }
+        controller.enabled = false;
     }
 
     public void SetCamera(bool isEnable, RenderTexture renderTexture = null)
@@ -23,7 +24,12 @@ public abstract class BasePlayer : MonoBehaviour
         camera.enabled = isEnable;
         camera.targetTexture = renderTexture;
     }
-
+    
+    public void StartController()
+    {
+        controller.enabled = true;
+    }
+    
     public abstract void StartMove(Vector2 startSpeed);
     public abstract void StopMove();
     public abstract void StartTurn(Vector2 speed);
