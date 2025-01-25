@@ -9,6 +9,8 @@ public abstract class BasePlayer : MonoBehaviour
     [SerializeField]
     protected Camera camera;
     
+    protected Team team = Team.None;
+    
     protected void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -28,6 +30,11 @@ public abstract class BasePlayer : MonoBehaviour
     public void StartController()
     {
         controller.enabled = true;
+    }
+    
+    public void SetTeam(Team team)
+    {
+        this.team = team;
     }
     
     public abstract void StartMove(Vector2 startSpeed);

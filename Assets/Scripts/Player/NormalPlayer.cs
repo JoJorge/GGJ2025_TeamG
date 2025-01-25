@@ -1,9 +1,10 @@
 using System;
+using CliffLeeCL;
 using UnityEngine;
 
 public class NormalPlayer : BasePlayer
 {
-    private const float MAX_TURN_VERTICAL = 30;
+    private const float MAX_TURN_VERTICAL = 60;
     
     private const float MAX_FALL_SPEED = 10;
 
@@ -16,6 +17,14 @@ public class NormalPlayer : BasePlayer
     [SerializeField]
     private float flySpeed = 10f;
     
+    [SerializeField]
+    private int maxBubbleAmmo = 100;
+    
+    [SerializeField]
+    private int bubbleAmmoPerShoot = 10;
+    
+    private int leftBubbleAmmo = 100;
+    
     private Vector3 moveSpeed = Vector3.zero;
 
     private Vector2 turnSpeed;
@@ -24,6 +33,13 @@ public class NormalPlayer : BasePlayer
     
     private float verticalSpeed = 0;
     
+    private bool isMain = false;
+    
+    private void Start()
+    {
+        leftBubbleAmmo = maxBubbleAmmo;
+    }
+
     protected void FixedUpdate()
     {
         if (controller == null)
@@ -87,6 +103,12 @@ public class NormalPlayer : BasePlayer
         }
     }
 
+    public void SetMain()
+    {
+        isMain = true;
+        EventManager.Instance.OnMaxAmmoChanged(this, maxBubbleAmmo);
+    }
+    
     public override void StartMove(Vector2 startSpeed)
     {
         moveSpeed = startSpeed.y * camera.transform.forward + startSpeed.x * camera.transform.right;
@@ -118,10 +140,19 @@ public class NormalPlayer : BasePlayer
 
     public override void ShootBubble(float size)
     {
+        if (leftBubbleAmmo < bubbleAmmoPerShoot)
+        {
+            return;
+        }
+        leftBubbleAmmo -= bubbleAmmoPerShoot;
+        if (isMain)
+        {
+            EventManager.Instance.OnCurrentAmmoChanged(this, leftBubbleAmmo);
+        }
         var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
-        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), camera.transform.rotation) as Bubble;
-        bubble.SetSize(size);
-        bubble.Fly(flySpeed);
+        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), transform.rotation) as Bubble;
+        bubble.SetTeam(team);
+        bubble.StartDelayFloat(size);
     }
 
     public override void ShootAttack()
