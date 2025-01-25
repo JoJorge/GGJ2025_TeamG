@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 1319851253334002316}
   - component: {fileID: 1999795615807374079}
   - component: {fileID: 9057864167322377704}
+  - component: {fileID: 4185612110391740492}
   m_Layer: 5
   m_Name: BlueTeamScore
   m_TagString: Untagged
@@ -262,6 +263,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4185612110391740492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160384519209573272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62894f786dc4ef4c9f5c1e7bcf487a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 1
+  teamScoreText: {fileID: 4474966217561312803}
 --- !u!1 &1597276685083884344
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +288,7 @@ GameObject:
   - component: {fileID: 7661126374962528552}
   - component: {fileID: 4339283922090098424}
   - component: {fileID: 8594410010947336287}
+  - component: {fileID: 6271160269121795764}
   m_Layer: 5
   m_Name: TimeText
   m_TagString: Untagged
@@ -399,6 +415,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6271160269121795764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597276685083884344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe52af91c88d8054db2710b305820965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roundTimeText: {fileID: 8594410010947336287}
 --- !u!1 &1792433394733973362
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -883,6 +912,7 @@ GameObject:
   - component: {fileID: 1383578783628401985}
   - component: {fileID: 7319376942694673474}
   - component: {fileID: 4474116109291837555}
+  - component: {fileID: 6128531858939338434}
   m_Layer: 5
   m_Name: RedTeamScore
   m_TagString: Untagged
@@ -948,6 +978,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6128531858939338434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4381086295128377002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62894f786dc4ef4c9f5c1e7bcf487a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  team: 0
+  teamScoreText: {fileID: 7872838273095114072}
 --- !u!1 &5337389214699977717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1430,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1629431021096069736}
   m_FillRect: {fileID: 9175056300998165750}
   m_HandleRect: {fileID: 2998349165516059870}
@@ -1644,7 +1688,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
