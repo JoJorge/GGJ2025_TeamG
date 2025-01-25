@@ -1,9 +1,17 @@
 using System;
 using CliffLeeCL;
 using UnityEngine;
+using Fusion;
 
 public class GameCore : MonoBehaviour, IContext
 {
+    [SerializeField]
+    private NetworkRunner networkRunner;
+    
+    [SerializeField]
+    private NetworkManager networkManager;
+
+
     private MainFsm mainFsm = null;
     
     // singleton
@@ -15,6 +23,9 @@ public class GameCore : MonoBehaviour, IContext
             return instance;
         }
     }
+
+    public NetworkRunner NetworkRunner => networkRunner;
+    public NetworkManager NetworkManager => networkManager;
 
     private void Awake()
     {

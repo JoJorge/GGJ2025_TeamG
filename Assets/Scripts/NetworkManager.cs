@@ -19,10 +19,32 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     private const string DEFAULT_LOBBY_NAME = "Bubble";
     private Team? teamInput;
 
-    public void SelectTeam() 
-    { 
 
+    public async UniTask ConnectToServer()
+    {
+        networkRunner.ProvideInput = true;
+
+        // Start or join (depends on gamemode) a session with a specific name
+        await networkRunner.StartGame(new StartGameArgs()
+        {
+            GameMode = GameMode.AutoHostOrClient,
+            SessionName = "TestRoom",
+            Scene = CreateSceneInfo(),
+            SceneManager = networkRunner.gameObject.AddComponent<NetworkSceneManagerDefault>()
+        });
     }
+
+    NetworkSceneInfo CreateSceneInfo()
+    {
+        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var sceneInfo = new NetworkSceneInfo();
+        if (scene.IsValid)
+        {
+            sceneInfo.AddSceneRef(scene);
+        }
+        return sceneInfo;
+    }
+
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
