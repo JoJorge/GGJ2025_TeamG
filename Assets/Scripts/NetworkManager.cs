@@ -18,7 +18,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     [SerializeField]
     private NetworkPrefabRef _playerPrefab;
-    private Dictionary<PlayerRef, NetworkObject> _players = new();
+    public readonly Dictionary<PlayerRef, BasePlayer> Players = new();
 
     private const string DEFAULT_LOBBY_NAME = "Bubble";
     private Team? teamInput;
@@ -26,6 +26,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     public async UniTask WaitForAllPlayers()
     {
         await UniTask.WaitWhile(() => networkRunner.ActivePlayers.Count() < minPlayerCount);
+    }
+
+    public void RegisterPlayer(PlayerRef playerRef, BasePlayer player)
+    {
+        Players[playerRef] = player;
     }
 
 
