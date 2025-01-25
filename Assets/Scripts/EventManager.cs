@@ -31,31 +31,39 @@ namespace CliffLeeCL
         /// </summary>
         public delegate void DefaultEventHandler();
         /// <summary>
-        /// The event is called when game over.
+        /// The event is called when match start.
         /// </summary>
-        /// <seealso cref="OnGameOver"/>
-        public event DefaultEventHandler onGameOver;
+        public event DefaultEventHandler onMatchStart;
+        /// <summary>
+        /// The event is called when match over.
+        /// </summary>
+        public event DefaultEventHandler onMatchOver;
         /// <summary>
         /// The event is called when a player scored. Only can call on the server(SyncEvent).
         /// </summary>
-        /// <seealso cref="OnPlayerScored"/>
         public event DefaultEventHandler onPlayerScored;
-
+        
         /// <summary>
-        /// The function is called when a player scored.
+        /// The function is called when a match start.
         /// </summary>
-        /// <seealso cref="onGameOver"/>
-        public void OnGameOver()
+        public void OnMatchStart()
         {
-            if (onGameOver != null)
-                onGameOver();
-            Debug.Log("OnGameOver event is invoked!");
+            onMatchStart?.Invoke();
+            Debug.Log("OnMatchStart event is invoked!");
         }
 
         /// <summary>
         /// The function is called when a player scored.
         /// </summary>
-        /// <seealso cref="onPlayerScored"/>
+        public void OnMatchOver()
+        {
+            onMatchOver?.Invoke();
+            Debug.Log("OnMatchOver event is invoked!");
+        }
+
+        /// <summary>
+        /// The function is called when a player scored.
+        /// </summary>
         public void OnPlayerScored()
         {
             if (onPlayerScored != null)

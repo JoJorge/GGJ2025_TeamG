@@ -90,7 +90,7 @@ namespace CliffLeeCL
         void GameOver()
         {
             isGameOver = true;
-            EventManager.Instance.OnGameOver();
+            EventManager.Instance.OnMatchOver();
             Time.timeScale = 0.0f;
         }
     }

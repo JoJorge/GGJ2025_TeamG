@@ -24,7 +24,7 @@ namespace CliffLeeCL
         /// </summary>
         void Start()
         {
-            EventManager.Instance.onGameOver += OnGameOver;
+            EventManager.Instance.onMatchOver += OnMatchOver;
         }
 
         /// <summary>
@@ -32,14 +32,14 @@ namespace CliffLeeCL
         /// </summary>
         void OnDisable()
         {
-            EventManager.Instance.onGameOver -= OnGameOver;
+            EventManager.Instance.onMatchOver -= OnMatchOver;
         }
 
         /// <summary>
         /// Event listener that listen to EventManager's onGameOver event.
         /// </summary>
-        /// <seealso cref="EventManager.onGameOver"/>
-        void OnGameOver()
+        /// <seealso cref="EventManager.onMatchOver"/>
+        void OnMatchOver()
         {
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;

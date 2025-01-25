@@ -95,7 +95,7 @@ namespace CliffLeeCL
             if (!isGameOver && collision.isCollidedWithEnemy)
             {
                 isGameOver = true;
-                EventManager.Instance.OnGameOver();
+                EventManager.Instance.OnMatchOver();
             }
         }
     }

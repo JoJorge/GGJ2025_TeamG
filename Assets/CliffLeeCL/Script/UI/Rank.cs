@@ -10,15 +10,15 @@ namespace CliffLeeCL {
 
         // Use this for initialization
         void Start() {
-            EventManager.Instance.onGameOver += OnGameOver;
+            EventManager.Instance.onMatchOver += OnMatchOver;
         }
 
         void OnDisable()
         {
-            EventManager.Instance.onGameOver -= OnGameOver;
+            EventManager.Instance.onMatchOver -= OnMatchOver;
         }
 
-        void OnGameOver()
+        void OnMatchOver()
         {
             int currentScore = ScoreManager.Instance.CurrentScore;
 

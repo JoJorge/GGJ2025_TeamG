@@ -115,7 +115,7 @@ namespace CliffLeeCL
         /// <summary>
         /// Event listener that listen to EventManager's onGameOver event.
         /// </summary>
-        /// <seealso cref="EventManager.onGameOver"/>
+        /// <seealso cref="EventManager.onMatchOver"/>
         void OnGameOver()
         {
             StopCoroutine("SpawnObject");
