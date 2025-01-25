@@ -16,6 +16,9 @@ public class NetworkPlayer : BasePlayer
 
     public override void FixedUpdateNetwork()
     {
+        var no = GetComponent<NetworkObject>();
+        no.AssignInputAuthority(Runner.LocalPlayer);
+
         if (GetInput(out NetworkInputData data))
         {
             Debug.LogError($"Movement = {data.Movement}, Turn = {data.Turn}");
