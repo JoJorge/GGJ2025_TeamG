@@ -98,7 +98,6 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-
         InputActions.Enable();
 
         var data = new NetworkInputData();
@@ -111,10 +110,9 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
         data.Buttons.Set(InputButtons.ShootBubble, loudness > loudnessThreshold);
         data.Loudness = loudness;
 
-        Debug.Log($"NetworkInputController: {data.Movement}  {data.Turn}");
- 
-        input.Set(data);
+        Debug.LogError($"Input: Movement={data.Movement} , Turn={data.Turn}");
 
+        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)

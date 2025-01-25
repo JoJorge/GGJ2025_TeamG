@@ -111,22 +111,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        // Vector3 spawnPos = Vector3.up * 2;
-        // NetworkObject networkObject = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
-        //runner.SetPlayerObject(player, networkObject);
         Debug.LogError($"Player {player.PlayerId} joins the game");
-        //_players[player] = networkObject;
     }
 
     void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        /*
-        if (_players.TryGetValue(player, out var networkObject))
-        {
-            runner.Despawn(networkObject);
-        }
-        _players.Remove(player);
-        */
     }
 
 
