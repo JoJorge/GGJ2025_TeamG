@@ -108,7 +108,8 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
         data.Buttons.Set(InputButtons.ShootAttack, InputActions.Player.Attack.triggered);
 
         var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
-        data.Buttons.Set(InputButtons.ShootBubble, loudness > loudnessThreshold);
+        loudness = 0.5f;
+        data.Buttons.Set(InputButtons.ShootBubble, InputActions.Player.SecondaryAttack.triggered);
         data.Loudness = loudness;
         Debug.LogError("Input loadness = " + data.Loudness);
         input.Set(data);

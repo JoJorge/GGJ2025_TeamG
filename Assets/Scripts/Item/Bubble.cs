@@ -22,21 +22,14 @@ public class Bubble : BaseItem
     [Networked]
     private Team team { get; set; } = Team.None;
 
-    private void Awake()
+
+    public override void Spawned()
     {
         if (!Runner.IsServer)
         {
             return;
         }
         originSize = transform.localScale;
-    }
-
-    private void Start()
-    {
-        if (!Runner.IsServer)
-        {
-            return;
-        }
         // add score
         if (team == Team.Blue)
         {
