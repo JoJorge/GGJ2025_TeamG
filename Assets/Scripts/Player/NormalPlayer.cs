@@ -129,16 +129,16 @@ public class NormalPlayer : BasePlayer
     public override void ShootBubble(float size)
     {
         var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
-        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), transform.rotation) as Bubble;
+        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), camera.transform.rotation) as Bubble;
         bubble.SetSize(size);
-        bubble.Fly(camera.transform.forward, camera.transform.up, flySpeed);
+        bubble.Fly(flySpeed);
     }
 
     public override void ShootAttack()
     {
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
-        var attack = Instantiate(attackPrefab, GetSpawnPosition(), transform.rotation) as Attack;
-        attack.Fly(camera.transform.forward, camera.transform.up, flySpeed);
+        var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
+        attack.Fly(flySpeed);
     }
     
     public Vector3 GetSpawnPosition()
