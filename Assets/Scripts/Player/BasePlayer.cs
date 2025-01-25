@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public abstract class BasePlayer : MonoBehaviour
@@ -9,7 +10,11 @@ public abstract class BasePlayer : MonoBehaviour
     [SerializeField]
     protected Camera camera;
     
-    protected Team team = Team.None;
+    public Team TeamType
+    {
+        get;
+        protected set;
+    }= Team.None;
     
     protected void Awake()
     {
@@ -34,7 +39,7 @@ public abstract class BasePlayer : MonoBehaviour
     
     public void SetTeam(Team team)
     {
-        this.team = team;
+        this.TeamType = team;
     }
     
     public abstract void StartMove(Vector2 startSpeed);

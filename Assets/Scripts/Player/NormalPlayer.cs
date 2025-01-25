@@ -182,7 +182,7 @@ public class NormalPlayer : BasePlayer
         }
         var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
         var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), transform.rotation) as Bubble;
-        bubble.SetTeam(team);
+        bubble.SetTeam(TeamType);
         bubble.StartDelayFloat(size);
     }
 
