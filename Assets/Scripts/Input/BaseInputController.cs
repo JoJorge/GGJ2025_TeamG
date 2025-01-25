@@ -1,6 +1,7 @@
+using Fusion;
 using UnityEngine;
 
-public abstract class BaseInputController : MonoBehaviour
+public abstract class BaseInputController : SimulationBehaviour
 {
     [SerializeField]
     protected BasePlayer player;

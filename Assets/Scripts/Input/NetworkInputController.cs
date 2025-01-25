@@ -4,6 +4,7 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class NetworkInputController : BaseInputController, INetworkRunnerCallbacks
 {
@@ -97,6 +98,9 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
+
+        InputActions.Enable();
+
         var data = new NetworkInputData();
         data.Movement = InputActions.Player.Move.ReadValue<Vector2>();
         data.Turn = InputActions.Player.Look.ReadValue<Vector2>();
@@ -104,10 +108,13 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
         data.Buttons.Set(InputButtons.ShootAttack, InputActions.Player.Attack.triggered);
 
         var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
-
         data.Buttons.Set(InputButtons.ShootBubble, loudness > loudnessThreshold);
-        data.Buttons.Set(InputButtons.ShootBubble, true);
         data.Loudness = loudness;
+
+        Debug.Log($"NetworkInputController: {data.Movement}  {data.Turn}");
+ 
+        input.Set(data);
+
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
@@ -117,7 +124,6 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
-
     }
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)

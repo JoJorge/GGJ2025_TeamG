@@ -8,7 +8,8 @@ public class PlayerConfig : ScriptableObject
     public enum PlayerType
     {
         Normal,
-        Debug
+        Debug,
+        Net,
     }
     
     // (PlayerType, prefab) pair

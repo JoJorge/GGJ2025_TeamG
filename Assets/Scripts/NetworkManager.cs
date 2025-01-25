@@ -38,14 +38,14 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = GameMode.AutoHostOrClient,
             SessionName = "TestRoom",
-            Scene = CreateSceneInfo(),
             SceneManager = networkRunner.gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
     }
 
     NetworkSceneInfo CreateSceneInfo()
     {
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var scene = SceneRef.FromIndex(SceneManager.GetSceneByName("Game").buildIndex);
+        //var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
@@ -87,13 +87,6 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        var data = new NetworkInputData();
-        if (teamInput.HasValue)
-        {
-            data.Team = teamInput.Value;
-            teamInput = null;
-        }
-        input.Set(data);
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
@@ -113,9 +106,9 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        Vector3 spawnPos = Vector3.up * 2;
-        NetworkObject networkObject = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
-        runner.SetPlayerObject(player, networkObject);
+        // Vector3 spawnPos = Vector3.up * 2;
+        // NetworkObject networkObject = runner.Spawn(_playerPrefab, spawnPos, Quaternion.identity, player);
+        //runner.SetPlayerObject(player, networkObject);
         Debug.LogError($"Player {player.PlayerId} joins the game");
         //_players[player] = networkObject;
     }

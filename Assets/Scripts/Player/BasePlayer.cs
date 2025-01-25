@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
+using Fusion;
 
 [RequireComponent(typeof(CharacterController))]
-public abstract class BasePlayer : MonoBehaviour
+public abstract class BasePlayer : NetworkBehaviour
 {
     protected CharacterController controller;
 
