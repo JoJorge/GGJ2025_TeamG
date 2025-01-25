@@ -1,12 +1,21 @@
+using System;
 using UnityEngine;
 
 public class NormalPlayer : BasePlayer
 {
     private const float MAX_TURN_VERTICAL = 30;
     
+    private const float GRAVITY = 9.8f;
+    
+    private const float MAX_FALL_SPEED = 10;
+    
     protected Vector3 moveSpeed = Vector3.zero;
 
     protected Vector2 turnSpeed;
+    
+    private bool isGrounded = false;
+    
+    private float verticalSpeed = 0;
     
     protected void FixedUpdate()
     {
@@ -14,10 +23,27 @@ public class NormalPlayer : BasePlayer
         {
             return;
         }
+        // horizontal move
         if (moveSpeed != Vector3.zero)
         {
             controller.Move(moveSpeed * Time.fixedDeltaTime);
         }
+        // vertical move
+        if (!isGrounded)
+        {
+            verticalSpeed -= GRAVITY * Time.fixedDeltaTime;
+            if (verticalSpeed < -MAX_FALL_SPEED)
+            {
+                verticalSpeed = -MAX_FALL_SPEED;
+            }
+            controller.Move(Vector3.up * verticalSpeed);
+        }
+        else
+        {
+            verticalSpeed = 0;
+        }
+        
+        // turn
         if (camera == null)
         {
             return;
@@ -45,10 +71,28 @@ public class NormalPlayer : BasePlayer
             }
         }
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = true;
+            // reset vertical speed and height
+            verticalSpeed = 0;
+        }
+    }
     
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
     public override void StartMove(Vector2 startSpeed)
     {
-        moveSpeed = new Vector3(startSpeed.x, 0, startSpeed.y);
+        moveSpeed = startSpeed.y * camera.transform.forward + startSpeed.x * camera.transform.right;
     }
     
     public override void StopMove()
@@ -68,16 +112,25 @@ public class NormalPlayer : BasePlayer
 
     public override void Jump()
     {
-        
+        if (isGrounded)
+        {
+            verticalSpeed = 5;
+            isGrounded = false;
+        }
     }
 
     public override void ShootBubble(float size)
     {
-        throw new System.NotImplementedException();
+        var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
+        var bubble = Instantiate(bubblePrefab, transform.position, transform.rotation) as Bubble;
+        bubble.SetSize(size);
+        bubble.Fly(transform.forward, 5);
     }
 
     public override void ShootAttack()
     {
-        throw new System.NotImplementedException();
+        var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
+        var attack = Instantiate(attackPrefab, transform.position, transform.rotation) as Attack;
+        attack.Fly(transform.forward, 10);
     }
 }

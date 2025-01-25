@@ -5,6 +5,7 @@ public class GameConfig : MonoBehaviour
 {
     public PlayerConfig playerConfig;
     public InputCtrlConfig inputCtrlConfig;
+    public ItemConfig itemConfig;
     
     // singleton
     private static GameConfig instance = null;

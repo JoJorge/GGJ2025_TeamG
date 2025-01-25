@@ -6,6 +6,7 @@ public class LocalInputController : BaseInputController
     public int microphoneIndex = 0;
     public float loudnessScalar = 10;
     public float loudnessThreshold = 0.5f;
+    public float turnScale = 1;
     
     private InputSystem_Actions inputActions;
     private AudioDetector audioDetector = new();
@@ -35,7 +36,7 @@ public class LocalInputController : BaseInputController
     void Update()
     {
         player.StartMove(inputActions.Player.Move.ReadValue<Vector2>());
-        player.StartTurn(inputActions.Player.Look.ReadValue<Vector2>());
+        player.StartTurn(inputActions.Player.Look.ReadValue<Vector2>() * turnScale);
         
         if (inputActions.Player.Jump.triggered)
         {

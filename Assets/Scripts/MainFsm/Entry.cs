@@ -21,15 +21,25 @@ namespace CliffLeeCL
             {
                 await UniTask.Yield();
             }
-            await stateContext.NetworkManager.ConnectToServer();
+            if (stateContext.IsUseNetwork)
+            {
+                await stateContext.NetworkManager.ConnectToServer();
+            }
             isInitialized = true;
         }
 
         public override void UpdateState()
         {
             if (isInitialized)
-            {
-                stateContext.SwitchState("WaitPlayer");
+            {   
+                if (stateContext.IsUseNetwork)
+                {
+                    stateContext.SwitchState("WaitPlayer");
+                }
+                else
+                {
+                    stateContext.SwitchState("PreparePlayer");
+                }
             }
         }
 

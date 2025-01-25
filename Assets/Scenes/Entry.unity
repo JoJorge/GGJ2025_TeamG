@@ -478,6 +478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkRunner
       objectReference: {fileID: 0}
+    - target: {fileID: 8862072292759635597, guid: aaaa3ea94d1aed84d9726c9ed4423194, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -514,6 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkRunner: {fileID: 382117294}
   networkManager: {fileID: 382117296}
+  isUseNetwork: 1
 --- !u!4 &1751239280
 Transform:
   m_ObjectHideFlags: 0
@@ -560,6 +565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerConfig: {fileID: 11400000, guid: de7a2269011165842b5c98b33b218362, type: 2}
   inputCtrlConfig: {fileID: 11400000, guid: 9b015b42bb2ee6e499760aebdbaf9cbc, type: 2}
+  itemConfig: {fileID: 11400000, guid: 677a869e24bbc9f4981427712fa99a60, type: 2}
 --- !u!4 &2018869823
 Transform:
   m_ObjectHideFlags: 0

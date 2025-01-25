@@ -9,6 +9,9 @@ namespace CliffLeeCL
         {
             var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Net);
             var runner = stateContext.NetworkRunner;
+            Debug.LogError("PreparePlayer for player " + stateContext.NetworkRunner.LocalPlayer.AsIndex);
+
+
 
             Debug.LogError("PreparePlayer for player " + runner.LocalPlayer.AsIndex);
 
@@ -16,13 +19,17 @@ namespace CliffLeeCL
             {
                 var player = runner.Spawn
                 (
-                    playerPrefab
+                    playerPrefab,
+                    FieldManager.Instance.spawnRoot.position + Vector3.up
                 );
                 runner.SetPlayerObject(runner.LocalPlayer, player.GetComponent<NetworkObject>());
-                player.SetCamera(false);
+                // player.SetCamera(false);
+                player.StartController();
+
                 Debug.LogError($"Player {runner.LocalPlayer.PlayerId} joins the game");
 
-                var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Net);
+                var inputCtrlType = stateContext.IsUseNetwork ? InputCtrlConfig.InputCtrlType.Net : InputCtrlConfig.InputCtrlType.Local;
+                var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(inputCtrlType);
 
                 var inputCtrl = GameObject.Instantiate<BaseInputController>(inputCtrlPrefab);
                 if (inputCtrlPrefab is NetworkInputController networkInputController)

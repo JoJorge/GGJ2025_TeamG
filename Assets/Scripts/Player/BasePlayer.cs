@@ -17,6 +17,7 @@ public abstract class BasePlayer : NetworkBehaviour
         {
             camera = GetComponentInChildren<Camera>();
         }
+        controller.enabled = false;
     }
 
     public void SetCamera(bool isEnable, RenderTexture renderTexture = null)
@@ -24,7 +25,12 @@ public abstract class BasePlayer : NetworkBehaviour
         camera.enabled = isEnable;
         camera.targetTexture = renderTexture;
     }
-
+    
+    public void StartController()
+    {
+        controller.enabled = true;
+    }
+    
     public abstract void StartMove(Vector2 startSpeed);
     public abstract void StopMove();
     public abstract void StartTurn(Vector2 speed);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CliffLeeCL
 {
@@ -39,9 +40,9 @@ namespace CliffLeeCL
         /// </summary>
         public event DefaultEventHandler onMatchOver;
         /// <summary>
-        /// The event is called when a player scored. Only can call on the server(SyncEvent).
+        /// The event is called when a team scored.
         /// </summary>
-        public event DefaultEventHandler onPlayerScored;
+        public event EventHandler<ScoreManager.Team> onTeamScored;
         
         /// <summary>
         /// The function is called when a match start.
@@ -62,12 +63,11 @@ namespace CliffLeeCL
         }
 
         /// <summary>
-        /// The function is called when a player scored.
+        /// The function is called when a team scored.
         /// </summary>
-        public void OnPlayerScored()
+        public void OnTeamScored(object sender, ScoreManager.Team team)
         {
-            if (onPlayerScored != null)
-                onPlayerScored();
+            onTeamScored?.Invoke(sender, team);
         }
     }
 }
