@@ -6,7 +6,7 @@ namespace  CliffLeeCL
     {
         public override void OnStateEnter()
         {
-            var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Debug);
+            var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Normal);
             var player = GameObject.Instantiate<BasePlayer>(playerPrefab);
             player.SetCamera(false);
             var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Local);

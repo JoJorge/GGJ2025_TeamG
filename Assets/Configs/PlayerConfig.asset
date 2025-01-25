@@ -15,3 +15,5 @@ MonoBehaviour:
   playerTypePrefabList:
   - playerType: 1
     player: {fileID: 7714788928856047203, guid: 4928465adaad13847a11e42cbeefd7d3, type: 3}
+  - playerType: 0
+    player: {fileID: 266098286848468027, guid: f205f8a092919c64c9c874c087fcb873, type: 3}

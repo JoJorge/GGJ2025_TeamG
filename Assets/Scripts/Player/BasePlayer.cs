@@ -7,11 +7,7 @@ public abstract class BasePlayer : MonoBehaviour
     protected CharacterController controller;
 
     [SerializeField]
-    private Camera camera;
-    
-    protected Vector3 moveSpeed = Vector3.zero;
-
-    protected float turnSpeed;
+    protected Camera camera;
     
     protected void Awake()
     {
