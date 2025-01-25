@@ -7,11 +7,17 @@ namespace  CliffLeeCL
         public override void OnStateEnter()
         {
             var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Normal);
+            
             Debug.LogError("PreparePlayer for player " + stateContext.NetworkRunner.LocalPlayer.AsIndex);
             var player = GameObject.Instantiate<BasePlayer>(playerPrefab);
             player.SetCamera(false);
-            var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Local);
+            var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Net);
             var inputCtrl = GameObject.Instantiate<BaseInputController>(inputCtrlPrefab);
+            if (inputCtrlPrefab is NetworkInputController networkInputController)
+            {
+                stateContext.NetworkRunner.AddCallbacks(networkInputController);
+            }
+
             inputCtrl.SetPlayer(player);
         }
 
