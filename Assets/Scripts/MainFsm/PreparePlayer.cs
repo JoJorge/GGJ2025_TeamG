@@ -13,7 +13,8 @@ namespace  CliffLeeCL
             player.transform.position = FieldManager.Instance.spawnRoot.position + Vector3.up;
             //player.SetCamera(false);
             player.StartController();
-            var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(InputCtrlConfig.InputCtrlType.Local);
+            var inputCtrlType = stateContext.IsUseNetwork ? InputCtrlConfig.InputCtrlType.Net : InputCtrlConfig.InputCtrlType.Local;
+            var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(inputCtrlType);
             var inputCtrl = GameObject.Instantiate<BaseInputController>(inputCtrlPrefab);
             if (inputCtrlPrefab is NetworkInputController networkInputController)
             {
