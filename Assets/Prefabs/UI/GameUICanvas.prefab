@@ -65,8 +65,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6f119c35ba004884cb792964eed791fc, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45cdb7892b0b7e34f9512d7345c22754, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8598e4e435a33524b8362b851dfda2af, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc64ae3022d71e044bafe4ddca013e73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f7ea5e97fc8f5e4c979bc12fa244151, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45cdb7892b0b7e34f9512d7345c22754, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8598e4e435a33524b8362b851dfda2af, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bc64ae3022d71e044bafe4ddca013e73, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f7ea5e97fc8f5e4c979bc12fa244151, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3111b5484ee2add4bb59d8106e08b6fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e6510238bc47ad4db859a19139196d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1362,6 +1362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 438310832649753783}
   - component: {fileID: 632338580413283989}
+  - component: {fileID: 19142339066322894}
   m_Layer: 5
   m_Name: AmmoSlider
   m_TagString: Untagged
@@ -1438,10 +1439,23 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.162
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &19142339066322894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360285995487276111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4228fa911fd0acd48b35fd6934edd201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 632338580413283989}
 --- !u!1 &7497472074446743771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,14 +1515,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: ac4a99460bf0cfa4399dd8942f79567e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
