@@ -8,9 +8,12 @@ public class NormalPlayer : BasePlayer
     private const float GRAVITY = 9.8f;
     
     private const float MAX_FALL_SPEED = 10;
-    
-    [SerializeField]
+
+    [SerializeField] 
     private float jumpScale = 10;
+
+    [SerializeField]
+    private float flySpeed = 10f;
     
     private Vector3 moveSpeed = Vector3.zero;
 
@@ -126,16 +129,16 @@ public class NormalPlayer : BasePlayer
     public override void ShootBubble(float size)
     {
         var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
-        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), transform.rotation) as Bubble;
+        var bubble = Instantiate(bubblePrefab, GetSpawnPosition(), camera.transform.rotation) as Bubble;
         bubble.SetSize(size);
-        bubble.Fly(transform.forward, 5);
+        bubble.Fly(flySpeed);
     }
 
     public override void ShootAttack()
     {
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
-        var attack = Instantiate(attackPrefab, GetSpawnPosition(), transform.rotation) as Attack;
-        attack.Fly(transform.forward, 10);
+        var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
+        attack.Fly(flySpeed);
     }
     
     public Vector3 GetSpawnPosition()

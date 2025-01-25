@@ -11,13 +11,12 @@ public abstract class BaseItem : MonoBehaviour
     {
         if (isFlying)
         {
-            transform.Translate(transform.forward * flySpeed * Time.fixedDeltaTime);
+            transform.Translate(transform.forward * flySpeed * Time.fixedDeltaTime, Space.World);
         }
     }
 
-    public virtual void Fly(Vector3 direction, float speed)
+    public virtual void Fly(float speed)
     {
-        transform.rotation.SetLookRotation(direction, Vector3.up);
         flySpeed = speed;
         isFlying = true;
     }
