@@ -23,6 +23,9 @@ public class NormalPlayer : BasePlayer
     [SerializeField]
     private int bubbleAmmoPerShoot = 10;
     
+    [SerializeField]
+    private Timer refillBubbleTimer;
+    
     private int leftBubbleAmmo = 100;
     
     private Vector3 moveSpeed = Vector3.zero;
@@ -34,6 +37,8 @@ public class NormalPlayer : BasePlayer
     private float verticalSpeed = 0;
     
     private bool isMain = false;
+    
+    private int touchBubbleCount = 0;
     
     private void Start()
     {
@@ -100,6 +105,22 @@ public class NormalPlayer : BasePlayer
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+        {
+            touchBubbleCount++;
+        }
+    }
+    
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+        {
+            touchBubbleCount--;
+        }
+    }
+
     public void SetMain()
     {
         isMain = true;
@@ -108,7 +129,7 @@ public class NormalPlayer : BasePlayer
     
     public override void StartMove(Vector2 startSpeed)
     {
-        moveSpeed = startSpeed.y * camera.transform.forward + startSpeed.x * camera.transform.right;
+        moveSpeed = startSpeed.y * transform.forward + startSpeed.x * transform.right;
     }
     
     public override void StopMove()
@@ -141,6 +162,14 @@ public class NormalPlayer : BasePlayer
         {
             return;
         }
+        if (touchBubbleCount > 0)
+        {
+            return;
+        }
+        if (leftBubbleAmmo == maxBubbleAmmo)
+        {
+            refillBubbleTimer.StartCountDownTimer(1, false, OnRefillTimerEnd);
+        }
         leftBubbleAmmo -= bubbleAmmoPerShoot;
         if (isMain)
         {
@@ -157,6 +186,19 @@ public class NormalPlayer : BasePlayer
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
         var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
         attack.Fly(flySpeed);
+    }
+    
+    private void OnRefillTimerEnd()
+    {
+        leftBubbleAmmo = Mathf.Min(leftBubbleAmmo + 2, maxBubbleAmmo);
+        if (leftBubbleAmmo < maxBubbleAmmo)
+        {
+            refillBubbleTimer.StartCountDownTimer(1, false, OnRefillTimerEnd);
+        }
+        if (isMain)
+        {
+            EventManager.Instance.OnCurrentAmmoChanged(this, leftBubbleAmmo);
+        }
     }
     
     public Vector3 GetSpawnPosition()

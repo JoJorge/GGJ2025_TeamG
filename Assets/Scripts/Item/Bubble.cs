@@ -75,7 +75,7 @@ public class Bubble : BaseItem
         {
             Destroy(gameObject);
         }
-        else
+        else if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
         {
             isFloating = false;
         }
