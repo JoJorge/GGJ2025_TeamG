@@ -40,10 +40,6 @@ namespace CliffLeeCL
         /// </summary>
         void OnAgentDied()
         {
-            ScoreManager.Instance.AddScore(stateContext.enemyScore.score);
-            ScoreManager.Instance.AddKillCount(stateContext.enemyScore.killCount);
-            ScoreManager.Instance.AddCombo(stateContext.enemyScore.combo);
-            ScoreManager.Instance.AddLove(stateContext.enemyScore.love);
             stateContext.rigid.constraints = RigidbodyConstraints.None;
             Object.Destroy(stateContext.gameObject, stateContext.enemyStatus.destroyTime);
 

@@ -20,7 +20,7 @@ namespace CliffLeeCL {
 
         void OnMatchOver()
         {
-            int currentScore = ScoreManager.Instance.CurrentScore;
+            int currentScore = 0;
 
             if(currentScore > maxScore * 0.8f)
             {
