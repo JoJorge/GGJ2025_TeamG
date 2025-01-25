@@ -1,0 +1,241 @@
+﻿#pragma kernel ComputeLambertianSingle
+#pragma kernel ComputeLambertianSingleReuseLightContributionVector
+#pragma kernel ComputeLambertianAll
+#pragma kernel ComputeLambertianWithoutIdSingle
+#pragma kernel ComputeProbeLighting
+#pragma kernel ComputeLightContribution
+
+struct SamplePointData{
+	float4 Kd;
+	float3 worldPosition;
+	float3 worldNormal;
+};
+
+struct LightData{
+	float4 Id;
+	float3 worldPosition;
+	float3 forward;
+	float range;
+	float spotAngle;
+	int type;
+};
+
+struct ShadowData{ 
+	int isUnderShadowOfLight; // Use int for 4 byte alignment and no dynamic array allowed for passing to compute shader.
+};
+
+struct SHCoefficientData
+{
+    float4 SHA1;
+    float4 SHA2;
+    float4 SHA3;
+    float4 SHB1;
+    float4 SHB2;
+    float4 SHB3;
+    float4 SHC;
+};
+
+struct LightContributionData
+{
+    float4 lightContribution;
+};
+
+struct ComputeLightContributionData
+{
+    float4 currentIllumination;
+    float4 goalIllumination;
+    float3 worldPosition;
+};
+
+StructuredBuffer<SamplePointData> samplePoint;
+StructuredBuffer<LightData> light;
+StructuredBuffer<ShadowData> shadowTesting; // Only for ComputeLambertianAll
+StructuredBuffer<SHCoefficientData> SHCoefficient;
+StructuredBuffer<LightContributionData> lightContributionVector;
+StructuredBuffer<ComputeLightContributionData> computeLightContributionData;
+uint samplePointNumber;
+uint lightNumber;
+float epsilon;
+RWStructuredBuffer<float4> illumination;
+RWStructuredBuffer<float> floatBuffer1, floatBuffer2;
+
+float3 ComputeLightDirection(float3 interestWorldPosition, float3 lightWorldPosition, float3 forward, int lightType);
+float ComputeLightAttenuation(float3 interestWorldPosition, float3 lightWorldPosition, float lightRange, int lightType);
+bool IsUnderSpotlight(float3 positionToCheck, float3 lightWorldPosition, float3 lightForward, float lightSpotAngle);
+float4 GammaToLinear(float4 gammaValue);
+float4 LinearToGamma(float4 linearValue);
+
+[numthreads(256, 1, 1)]
+void ComputeLambertianSingle (uint3 id : SV_DispatchThreadID)
+{
+	illumination[id.x] = float4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	if(id.x >= samplePointNumber)
+		return;
+
+	float3 L;
+	float attenuation = ComputeLightAttenuation(samplePoint[id.x].worldPosition, light[0].worldPosition, light[0].range, light[0].type);
+
+	// Filter points that are not in range of light.
+	if(attenuation <= (0.0f + epsilon))
+		return;
+
+	// Filter points that are not under spotlight.
+	if ((light[0].type == 0) && !IsUnderSpotlight(samplePoint[id.x].worldPosition, light[0].worldPosition, light[0].forward, light[0].spotAngle)) 
+		return;
+
+	L = ComputeLightDirection(samplePoint[id.x].worldPosition, light[0].worldPosition, light[0].forward, light[0].type);
+	illumination[id.x] = light[0].Id * GammaToLinear(samplePoint[id.x].Kd) * max(dot(samplePoint[id.x].worldNormal, L), 0.0f) * attenuation;
+}
+
+[numthreads(256, 1, 1)]
+void ComputeLambertianSingleReuseLightContributionVector(uint3 id : SV_DispatchThreadID)
+{
+	if(id.x >= samplePointNumber)
+		return;
+
+	illumination[id.x] = light[0].Id * lightContributionVector[id.x].lightContribution;
+}
+
+[numthreads(256, 1, 1)]
+void ComputeLambertianAll (uint3 id : SV_DispatchThreadID)
+{
+	illumination[id.x] = float4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	if(id.x >= samplePointNumber)
+		return;
+
+	for(uint i = 0; i < lightNumber; i++){
+		if(shadowTesting[id.x + i * samplePointNumber].isUnderShadowOfLight) // Also filter points that are not under spotlight.
+			continue;
+
+		float3 L;
+		float attenuation = ComputeLightAttenuation(samplePoint[id.x].worldPosition, light[i].worldPosition, light[i].range, light[i].type);
+
+		// Filter points that are not in range of light.
+		if(attenuation <= (0.0f + epsilon))
+			continue;
+
+		L = ComputeLightDirection(samplePoint[id.x].worldPosition, light[i].worldPosition, light[i].forward, light[i].type);
+		illumination[id.x] += light[i].Id * GammaToLinear(samplePoint[id.x].Kd) * max(dot(samplePoint[id.x].worldNormal, L), 0.0f) * attenuation;
+	}
+}
+
+[numthreads(256, 1, 1)]
+void ComputeLambertianWithoutIdSingle (uint3 id : SV_DispatchThreadID)
+{
+	illumination[id.x] = float4(0.0f, 0.0f, 0.0f, 1.0f);
+
+	if(id.x >= samplePointNumber)
+		return;
+
+	float3 L;
+	float attenuation = ComputeLightAttenuation(samplePoint[id.x].worldPosition, light[0].worldPosition, light[0].range, light[0].type);
+
+	// Filter points that are not in range of light.
+	if(attenuation <= (0.0f + epsilon))
+		return;
+
+	// Filter points that are not under spotlight.
+	if ((light[0].type == 0) && !IsUnderSpotlight(samplePoint[id.x].worldPosition, light[0].worldPosition, light[0].forward, light[0].spotAngle)) 
+		return;
+
+	L = ComputeLightDirection(samplePoint[id.x].worldPosition, light[0].worldPosition, light[0].forward, light[0].type);
+	illumination[id.x] = GammaToLinear(samplePoint[id.x].Kd) * max(dot(samplePoint[id.x].worldNormal, L), 0.0f) * attenuation;
+}
+
+[numthreads(256, 1, 1)]
+void ComputeProbeLighting (uint3 id : SV_DispatchThreadID)
+{
+	if(id.x >= samplePointNumber)
+		return;
+
+	float3 worldNormal = samplePoint[id.x].worldNormal;
+	float4 worldNormal4 = float4(worldNormal.x, worldNormal.y, worldNormal.z, 1.0f);
+	float4 vB = float4(worldNormal.x * worldNormal.y, worldNormal.y * worldNormal.z, 
+						worldNormal.z * worldNormal.z, worldNormal.z * worldNormal.x);
+
+	illumination[id.x] = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	 // Constant + Linear polynomials
+    illumination[id.x].r += dot(SHCoefficient[id.x].SHA1, worldNormal4);
+    illumination[id.x].g += dot(SHCoefficient[id.x].SHA2, worldNormal4);
+    illumination[id.x].b += dot(SHCoefficient[id.x].SHA3, worldNormal4);
+
+    // Quadratic polynomials
+    illumination[id.x].r += dot(SHCoefficient[id.x].SHB1, vB);
+    illumination[id.x].g += dot(SHCoefficient[id.x].SHB2, vB);
+    illumination[id.x].b += dot(SHCoefficient[id.x].SHB3, vB);
+
+    // Final quadratic polynomial
+    illumination[id.x] += SHCoefficient[id.x].SHC * (worldNormal.x * worldNormal.x - worldNormal.y * worldNormal.y);
+}
+
+[numthreads(256, 1, 1)]
+void ComputeLightContribution (uint3 id : SV_DispatchThreadID)
+{
+	floatBuffer1[id.x] = 0.0f;
+	floatBuffer2[id.x] = 0.0f;
+
+	if(id.x >= samplePointNumber)
+		return;
+
+	if(computeLightContributionData[id.x].currentIllumination.r <= (0.0f + epsilon) && 
+		computeLightContributionData[id.x].currentIllumination.g <= (0.0f + epsilon) &&
+		computeLightContributionData[id.x].currentIllumination.b <= (0.0f + epsilon))
+		return;
+
+	float attenuation = ComputeLightAttenuation(computeLightContributionData[id.x].worldPosition, light[0].worldPosition, light[0].range, light[0].type);
+	float4 lightContribution = computeLightContributionData[id.x].currentIllumination;
+	float4 goalIllumination = computeLightContributionData[id.x].goalIllumination;
+
+	floatBuffer1[id.x] = (pow(lightContribution.r, 2) + pow(lightContribution.g, 2) + pow(lightContribution.b, 2)) * attenuation;
+	floatBuffer2[id.x] = (pow(goalIllumination.r, 2) + pow(goalIllumination.g, 2) + pow(goalIllumination.b, 2)) * attenuation;
+}
+
+// Compute a light direction (from interest point to light) according to light's type.
+float3 ComputeLightDirection(float3 interestWorldPosition, float3 lightWorldPosition, float3 lightForward, int lightType)
+{
+    if (lightType == 1) // Directional light
+		return -lightForward;
+    else
+        return normalize(lightWorldPosition - interestWorldPosition);
+}
+
+// A fucntion to compute light's attenuation.
+// attenuation (point lights and spotlights) = 1.0 / (1.0 + 25.0 * r * r), r goes from 0 at light position to 1 at it's range
+// attenuation (directional lights) will be 1.0f;
+float ComputeLightAttenuation(float3 interestWorldPosition, float3 lightWorldPosition, float lightRange, int lightType)
+{
+    if (lightType == 1) // Directional light
+        return 1.0f;
+    else
+    {
+        float attenFactor = length(lightWorldPosition - interestWorldPosition) / lightRange;
+		
+        if (attenFactor > 1.0f)
+            return 0.0f;
+        else
+            return 1.0f / (1.0f + 25.0f * attenFactor * attenFactor);
+    }
+}
+
+// Check whether a position is under the spotlight. (without attenuation computing)
+bool IsUnderSpotlight(float3 positionToCheck, float3 lightWorldPosition, float3 lightForward, float lightSpotAngle)
+{
+    float3 lightToPointDirection = normalize(positionToCheck - lightWorldPosition);
+    float theta = degrees(acos(dot(lightToPointDirection, lightForward)));
+
+    return (lightSpotAngle >= (theta * 2.0f));
+}
+
+// Convert color space from gamma to linear.
+float4 GammaToLinear(float4 gammaValue)
+{
+	return pow(gammaValue + 0.055f, 2.4f) / 1.13711896582f;
+}
+
+// Convert color space from linear to gamma.
+float4 LinearToGamma(float4 linearValue)
+{
+    return max(1.055f * pow(linearValue, 0.416666667f) - 0.055f, 0.0f); // 1 / gamma.
+}
