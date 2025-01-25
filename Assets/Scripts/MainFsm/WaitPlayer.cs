@@ -22,8 +22,7 @@ namespace  CliffLeeCL
         }
         private async UniTask WaitUntilAllPlayerJoins()
         {
-            var networkRunner = stateContext.NetworkRunner;
-            await UniTask.WaitWhile(() => networkRunner.ActivePlayers.Count() < 2);
+            await stateContext.NetworkManager.WaitForAllPlayers();
 
             isFinished = true;
         }

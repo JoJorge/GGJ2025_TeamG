@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7870547396364824938, guid: aaaa3ea94d1aed84d9726c9ed4423194, type: 3}
+      propertyPath: minPlayerCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8862072292759635597, guid: aaaa3ea94d1aed84d9726c9ed4423194, type: 3}
       propertyPath: m_Name
       value: NetworkRunner

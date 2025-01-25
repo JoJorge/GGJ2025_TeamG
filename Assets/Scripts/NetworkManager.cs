@@ -1,14 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Fusion;
-using Fusion.Sockets;
 using UnityEngine.SceneManagement;
 using Unity.Multiplayer.Center.Common;
+using Fusion;
+using Fusion.Sockets;
 using Cysharp.Threading.Tasks;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
+    [SerializeField]
+    private int minPlayerCount = 4;
+
     [SerializeField]
     private NetworkRunner networkRunner;
 
@@ -18,6 +22,11 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     private const string DEFAULT_LOBBY_NAME = "Bubble";
     private Team? teamInput;
+
+    public async UniTask WaitForAllPlayers()
+    {
+        await UniTask.WaitWhile(() => networkRunner.ActivePlayers.Count() < minPlayerCount);
+    }
 
 
     public async UniTask ConnectToServer()
