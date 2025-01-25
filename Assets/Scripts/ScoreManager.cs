@@ -11,11 +11,12 @@ namespace CliffLeeCL
             Blue
         }
 
-        private List<int> scoreList = new(); 
+        private int[] scoreList = new int[Enum.GetValues(typeof(Team)).Length]; 
         
         public void AddScore(Team team, int amount)
         {
             scoreList[(int)team] += amount;
+            EventManager.Instance.OnTeamScored(this, team);
         }
         
         public int GetScore(Team team)
@@ -23,23 +24,9 @@ namespace CliffLeeCL
             return scoreList[(int)team];
         }
 
-        private void Start()
+        private void ResetScore()
         {
-            foreach (var team in Enum.GetValues(typeof(Team)))
-            {
-                scoreList.Add(0); 
-            }
-            EventManager.Instance.onMatchStart += OnMatchStart;
-        }
-
-        private void OnDisable()
-        {
-            EventManager.Instance.onMatchStart -= OnMatchStart;
-        }
-
-        private void OnMatchStart()
-        {
-            for (int i = 0; i < scoreList.Count; i++)
+            for (int i = 0; i < scoreList.Length; i++)
             {
                 scoreList[i] = 0;
             }
