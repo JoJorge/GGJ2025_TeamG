@@ -13,6 +13,11 @@ namespace  CliffLeeCL
             player.transform.position = FieldManager.Instance.spawnRoot.position + Vector3.up;
             //player.SetCamera(false);
             player.StartController();
+            player.SetTeam(Team.Blue);
+            if (player is NormalPlayer)
+            {
+                (player as NormalPlayer).SetMain();
+            }
             var inputCtrlType = stateContext.IsUseNetwork ? InputCtrlConfig.InputCtrlType.Net : InputCtrlConfig.InputCtrlType.Local;
             var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(inputCtrlType);
             var inputCtrl = GameObject.Instantiate<BaseInputController>(inputCtrlPrefab);
@@ -22,6 +27,7 @@ namespace  CliffLeeCL
             }
 
             inputCtrl.SetPlayer(player);
+            stateContext.SwitchState("MatchProcess");
         }
 
         public override void UpdateState()
