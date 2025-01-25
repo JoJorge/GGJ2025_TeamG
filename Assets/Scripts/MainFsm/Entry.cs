@@ -29,7 +29,7 @@ namespace CliffLeeCL
         {
             if (isInitialized)
             {
-                stateContext.SwitchState("PreparePlayer");
+                stateContext.SwitchState("WaitPlayer");
             }
         }
 

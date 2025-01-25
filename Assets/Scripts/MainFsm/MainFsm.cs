@@ -8,6 +8,7 @@ public class MainFsm : StateMachine<State<GameCore>, GameCore>
     {
         // add states
         AddState("Entry", context);
+        AddState("WaitPlayer", context);
         AddState("PreparePlayer", context);
     }
 }
