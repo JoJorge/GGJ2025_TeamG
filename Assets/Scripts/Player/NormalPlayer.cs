@@ -92,7 +92,7 @@ public class NormalPlayer : BasePlayer
 
     public override void StartMove(Vector2 startSpeed)
     {
-        moveSpeed = new Vector3(startSpeed.x, 0, startSpeed.y);
+        moveSpeed = startSpeed.y * camera.transform.forward + startSpeed.x * camera.transform.right;
     }
     
     public override void StopMove()
