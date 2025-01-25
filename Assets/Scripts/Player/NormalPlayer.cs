@@ -25,6 +25,9 @@ public class NormalPlayer : BasePlayer
     
     [SerializeField]
     private Timer refillBubbleTimer;
+
+    [SerializeField]
+    private Timer attackCdTimer;
     
     private int leftBubbleAmmo = 100;
     
@@ -39,6 +42,8 @@ public class NormalPlayer : BasePlayer
     private bool isMain = false;
     
     private int touchBubbleCount = 0;
+    
+    private bool isAttackCd = false;
     
     private void Start()
     {
@@ -183,6 +188,12 @@ public class NormalPlayer : BasePlayer
 
     public override void ShootAttack()
     {
+        if (isAttackCd)
+        {
+            return;
+        }
+        isAttackCd = true;
+        attackCdTimer.StartCountDownTimer(4, false, () => isAttackCd = false);
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
         var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
         attack.Fly(flySpeed);
