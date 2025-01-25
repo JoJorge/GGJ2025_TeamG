@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using Fusion;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public abstract class BasePlayer : NetworkBehaviour
@@ -10,7 +11,12 @@ public abstract class BasePlayer : NetworkBehaviour
     [SerializeField]
     protected Camera camera;
     
-    protected Team team = Team.None;
+    [Networked]
+    public Team TeamType
+    {
+        get;
+        protected set;
+    } = Team.None;
     
     protected void Awake()
     {
@@ -35,7 +41,7 @@ public abstract class BasePlayer : NetworkBehaviour
     
     public void SetTeam(Team team)
     {
-        this.team = team;
+        this.TeamType = team;
     }
     
     public abstract void StartMove(Vector2 startSpeed);

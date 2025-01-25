@@ -164,7 +164,7 @@ public class NetworkPlayer : BasePlayer
         var bubblePrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Bubble);
 
         var bubble = Runner.Spawn(bubblePrefab, GetSpawnPosition(), transform.rotation).GetComponent<Bubble>();
-        bubble.SetTeam(team);
+        bubble.SetTeam(TeamType);
         bubble.StartDelayFloat(size);
     }
 

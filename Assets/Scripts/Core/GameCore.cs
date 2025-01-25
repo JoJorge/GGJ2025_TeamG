@@ -1,10 +1,17 @@
-using System;
 using CliffLeeCL;
 using UnityEngine;
 using Fusion;
+using Timer = CliffLeeCL.Timer;
 
-public class GameCore : MonoBehaviour, IContext
+public class GameCore : SingletonMono<GameCore>, IContext
 {
+    public float matchStartTime = 3.0f;
+    [HideInInspector]
+    public Timer matchStartTimer;
+    public float matchRoundTime = 60.0f;
+    [HideInInspector]
+    public Timer matchRoundTimer;
+        
     [SerializeField]
     private NetworkRunner networkRunner;
     
@@ -15,16 +22,6 @@ public class GameCore : MonoBehaviour, IContext
     private bool isUseNetwork = false;
     
     private MainFsm mainFsm = null;
-    
-    // singleton
-    private static GameCore instance = null;
-    public static GameCore Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
 
     public NetworkRunner NetworkRunner => networkRunner;
     public NetworkManager NetworkManager => networkManager;
@@ -32,9 +29,8 @@ public class GameCore : MonoBehaviour, IContext
 
     private void Awake()
     {
-        // assgin singleton
-        instance = this;
-        
+        matchStartTimer = gameObject.AddComponent<Timer>();
+        matchRoundTimer = gameObject.AddComponent<Timer>();
         SetupStateMachine();
     }
 

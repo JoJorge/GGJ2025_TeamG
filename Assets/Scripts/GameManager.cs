@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
 namespace CliffLeeCL
@@ -9,8 +8,6 @@ namespace CliffLeeCL
     /// </summary>
     public class GameManager : SingletonMono<GameManager>
     {
-
-
         /// <summary>
         /// Define how long a sigle round is.
         /// </summary>

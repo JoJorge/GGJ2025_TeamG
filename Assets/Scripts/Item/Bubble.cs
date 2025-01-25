@@ -99,7 +99,7 @@ public class Bubble : BaseItem
             Debug.LogError("Shoot!");
             Runner.Despawn(Object);
         }
-        else
+        else if (other.gameObject.layer != LayerMask.NameToLayer("Player"))
         {
             isFloating = false;
         }

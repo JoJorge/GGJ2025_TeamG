@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 0.40000004, g: 0.1764706, b: 0.10980393, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.017
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &305211354
 Light:
   m_ObjectHideFlags: 0
@@ -288,26 +288,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3248165776911238283, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}
-      propertyPath: m_Name
-      value: Half Field - RED
-      objectReference: {fileID: 0}
-    - target: {fileID: 3248165776911238283, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5431394996620058795, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}
       propertyPath: m_Name
-      value: FullField
-      objectReference: {fileID: 0}
-    - target: {fileID: 9189463004285738201, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}
-      propertyPath: m_Name
-      value: Half Field - BLUE
+      value: Full Field
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2021094078838363279, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}
-    - {fileID: 3934326951295485264, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20c59c8338f43e4498deff20bb7c2280, type: 3}

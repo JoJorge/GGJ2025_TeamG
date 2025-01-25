@@ -49,5 +49,5 @@ MonoBehaviour:
   microphoneIndex: 0
   loudnessScalar: 10
   loudnessThreshold: 0.5
-  moveScalar: 10
+  moveScalar: 5
   turnScalar: 10

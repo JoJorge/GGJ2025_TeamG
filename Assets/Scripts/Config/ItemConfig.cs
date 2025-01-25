@@ -7,7 +7,8 @@ public class ItemConfig : ScriptableObject
     public enum ItemType
     {
         Bubble,
-        Attack
+        Attack,
+        Star,
     }
     
     // (Item, prefab) pair
