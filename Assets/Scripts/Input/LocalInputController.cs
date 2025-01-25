@@ -1,10 +1,15 @@
 using CliffLeeCL;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class LocalInputController : BaseInputController 
+public class LocalInputController : BaseInputController
 {
+    public bool useMicrophone = true;
+    [ShowIf("useMicrophone")]
     public int microphoneIndex = 0;
+    [ShowIf("useMicrophone")]
     public float loudnessScalar = 10;
+    [ShowIf("useMicrophone")]
     public float loudnessThreshold = 0.5f;
     public float turnScale = 1;
     
@@ -30,7 +35,10 @@ public class LocalInputController : BaseInputController
     
     private void OnMatchStart()
     {
-        audioDetector.StartRecording(microphoneIndex);
+        if (useMicrophone)
+        {
+            audioDetector.StartRecording(microphoneIndex);
+        }
     }
 
     void Update()
@@ -48,10 +56,17 @@ public class LocalInputController : BaseInputController
             player.ShootAttack();
         } 
         
-        var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
-        if (loudness > loudnessThreshold)
+        if (useMicrophone)
         {
-            player.ShootBubble(loudness);
+            var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
+            if (loudness > loudnessThreshold)
+            {
+                player.ShootBubble(loudness);
+            }
+        }
+        else if (inputActions.Player.SecondaryAttack.triggered)
+        {
+            player.ShootBubble(1);  
         }
     }
 }
