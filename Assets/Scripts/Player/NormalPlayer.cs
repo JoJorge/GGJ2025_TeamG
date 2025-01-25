@@ -52,23 +52,20 @@ public class NormalPlayer : BasePlayer
             controller.Move(moveSpeed * Time.fixedDeltaTime);
         }
         // vertical move
-        if (!isGrounded)
+        verticalSpeed -= gravity * Time.fixedDeltaTime;
+        if (verticalSpeed < -MAX_FALL_SPEED)
         {
-            verticalSpeed -= gravity * Time.fixedDeltaTime;
-            if (verticalSpeed < -MAX_FALL_SPEED)
-            {
-                verticalSpeed = -MAX_FALL_SPEED;
-            }
-            var prvY = transform.position.y;
-            controller.Move(Vector3.up * verticalSpeed);
-            var nowY = transform.position.y;
-            if (verticalSpeed < 0 && prvY - nowY < 1e-3f)
-            {
-                isGrounded = true;
-                verticalSpeed = 0;
-            }
+            verticalSpeed = -MAX_FALL_SPEED;
         }
-        else
+        var prvY = transform.position.y;
+        controller.Move(Vector3.up * verticalSpeed);
+        var nowY = transform.position.y;
+        if (verticalSpeed < 0 && prvY - nowY < 1e-3f)
+        {
+            isGrounded = true;
+            verticalSpeed = 0;
+        }
+        if (isGrounded)
         {
             verticalSpeed = 0;
         }

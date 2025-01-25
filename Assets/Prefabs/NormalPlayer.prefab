@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1251070681498273593}
   - component: {fileID: 3429489561314033600}
   - component: {fileID: 266098286848468027}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NormalPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,6 +75,8 @@ MonoBehaviour:
   gravity: 2
   jumpScale: 0.5
   flySpeed: 10
+  maxBubbleAmmo: 100
+  bubbleAmmoPerShoot: 10
 --- !u!1 &7338123658397880741
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +88,7 @@ GameObject:
   - component: {fileID: 3342605026030544494}
   - component: {fileID: 7456080920841177188}
   - component: {fileID: 6563313844998455601}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +217,7 @@ GameObject:
   - component: {fileID: 4809128652282002827}
   - component: {fileID: 3838213984549321949}
   - component: {fileID: 2973489047975875470}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
