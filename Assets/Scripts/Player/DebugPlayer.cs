@@ -2,29 +2,34 @@ using UnityEngine;
 
 public class DebugPlayer : BasePlayer
 {
-    public override void Move(Vector2 moveSpeed)
+    public override void StartMove(Vector2 startSpeed)
     {
-        Debug.Log("Move: " + moveSpeed);
+        Debug.Log("Move: " + startSpeed);
     }
 
-    public override void Turn(float speed)
+    public override void StopMove()
+    {
+        Debug.Log("StopMove");
+    }
+
+    public override void StartTurn(Vector2 speed)
     {
         Debug.Log("Turn: " + speed);
     }
 
+    public override void StopTurn()
+    {
+        Debug.Log("StopTurn");
+    }
+    
     public override void Jump()
     {
         Debug.Log("Jump");
     }
 
-    public override void BlowBubble()
+    public override void ShootBubble(float size)
     {
-        Debug.Log("BlowBubble");
-    }
-
-    public override void ShootBubble()
-    {
-        Debug.Log("ShootBubble");
+        Debug.Log("ShootBubble: " + size);
     }
 
     public override void ShootAttack()

@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -6,31 +7,33 @@ public class DebugInputController : BaseInputController
 {
     public Vector2 moveSpeed = Vector2.zero;
     
-    [Range(-1, 1)]
-    public float turnSpeed = 0;
+    public Vector2 turnSpeed = Vector2.zero;
     
+    [Range(0.1f, 1)]
+    public float bubbleSize = 0.1f;
+
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
     private void StartMove()
     {
-        player.Move(moveSpeed);
+        player.StartMove(moveSpeed);
     }
     
     [Button, EnableIf("@(player != null)"), DisableInEditorMode] 
     private void StopMove()
     {
-        player.Move(Vector2.zero);
+        player.StopMove();
     }
     
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
     private void StartTurn()
     {
-        player.Turn(turnSpeed);
+        player.StartTurn(turnSpeed);
     }
     
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
     private void StopTurn()
     {
-        player.Turn(0);
+        player.StopTurn();
     }
     
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
@@ -42,13 +45,12 @@ public class DebugInputController : BaseInputController
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
     private void BlowBubble()
     {
-        player.BlowBubble();
     }
     
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
     private void ShootBubble()
     {
-        player.ShootBubble();
+        player.ShootBubble(bubbleSize);
     }
     
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
