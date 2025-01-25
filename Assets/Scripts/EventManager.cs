@@ -43,6 +43,14 @@ namespace CliffLeeCL
         /// The event is called when a team scored.
         /// </summary>
         public event EventHandler<ScoreManager.Team> onTeamScored;
+        /// <summary>
+        /// The event is called when ammo changed.
+        /// </summary>
+        public event EventHandler<int> onCurrentAmmoChanged;
+        /// <summary>
+        /// The event is called when max ammo changed.
+        /// </summary>
+        public event EventHandler<int> onMaxAmmoChanged;
         
         /// <summary>
         /// The function is called when a match start.
@@ -68,6 +76,16 @@ namespace CliffLeeCL
         public void OnTeamScored(object sender, ScoreManager.Team team)
         {
             onTeamScored?.Invoke(sender, team);
+        }
+        
+        public void OnCurrentAmmoChanged(object sender, int totalAmount)
+        {
+            onCurrentAmmoChanged?.Invoke(sender, totalAmount);
+        }
+        
+        public void OnMaxAmmoChanged(object sender, int maxAmount)
+        {
+            onMaxAmmoChanged?.Invoke(sender, maxAmount);
         }
     }
 }

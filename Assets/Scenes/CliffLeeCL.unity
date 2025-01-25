@@ -672,10 +672,6 @@ PrefabInstance:
       value: GameUICanvas
       objectReference: {fileID: 0}
     - target: {fileID: 9175056300998165750, guid: 6c81f1b98ba36e449b274ac143d41ffa, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9175056300998165750, guid: 6c81f1b98ba36e449b274ac143d41ffa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}

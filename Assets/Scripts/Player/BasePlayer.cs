@@ -10,6 +10,8 @@ public abstract class BasePlayer : NetworkBehaviour
     [SerializeField]
     protected Camera camera;
     
+    protected Team team = Team.None;
+    
     protected void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -29,6 +31,11 @@ public abstract class BasePlayer : NetworkBehaviour
     public void StartController()
     {
         controller.enabled = true;
+    }
+    
+    public void SetTeam(Team team)
+    {
+        this.team = team;
     }
     
     public abstract void StartMove(Vector2 startSpeed);

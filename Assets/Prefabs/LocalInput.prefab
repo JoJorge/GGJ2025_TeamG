@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  useMicrophone: 0
   microphoneIndex: 0
   loudnessScalar: 10
   loudnessThreshold: 0.5
-  turnScale: 3
+  moveScalar: 10
+  turnScalar: 10

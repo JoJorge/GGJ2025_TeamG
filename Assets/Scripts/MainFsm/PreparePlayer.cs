@@ -56,6 +56,12 @@ namespace CliffLeeCL
                     player.StartController();
                     SpawnController(player);
                 }
+                
+                player.SetTeam(Team.Blue);
+                if (player is NormalPlayer normalPlayer)
+                {
+                    normalPlayer.SetMain();
+                }
             }
         }
 
@@ -84,6 +90,7 @@ namespace CliffLeeCL
 
         private void SpawnController(BasePlayer player)
         {
+
             var inputCtrlType = stateContext.IsUseNetwork ? InputCtrlConfig.InputCtrlType.Net : InputCtrlConfig.InputCtrlType.Local;
             var inputCtrlPrefab = GameConfig.Instance.inputCtrlConfig.GetInputCtrlPrefab(inputCtrlType);
 
