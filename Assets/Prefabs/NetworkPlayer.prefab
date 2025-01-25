@@ -52,12 +52,12 @@ CharacterController:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -75,6 +75,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   networkCharacterController: {fileID: 3457684921709373398}
+  gravity: 2
+  jumpScale: 0.5
+  flySpeed: 10
+  maxBubbleAmmo: 100
+  bubbleAmmoPerShoot: 10
 --- !u!114 &3457684921709373398
 MonoBehaviour:
   m_ObjectHideFlags: 0

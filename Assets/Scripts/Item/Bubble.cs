@@ -1,30 +1,42 @@
 using System;
 using CliffLeeCL;
+using Fusion;
 using UnityEngine;
 
 public class Bubble : BaseItem
 {
-    private Vector3 originSize;
-    
-    private float floatUpSpeedScale = 10;
-    
+
     [SerializeField]
     private float waitTime = 1.5f;
-    
-    [SerializeField]
-    private Timer waitTimer;
 
-    private bool isFloating = false;
-    
-    private Team team = Team.None;
-    
+    [SerializeField]
+    private CliffLeeCL.Timer waitTimer;
+
+
+    [Networked]
+    private float floatUpSpeedScale { get; set; } = 10;
+    [Networked]
+    private NetworkBool isFloating { get; set; } = false;
+    [Networked]
+    private Vector3 originSize { get; set; }
+    [Networked]
+    private Team team { get; set; } = Team.None;
+
     private void Awake()
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
         originSize = transform.localScale;
     }
 
     private void Start()
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
         // add score
         if (team == Team.Blue)
         {
@@ -36,8 +48,12 @@ public class Bubble : BaseItem
         }
     }
 
-    private void FixedUpdate()
+    public override void FixedUpdateNetwork()
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
         if (isFloating)
         {
             transform.Translate(Vector3.up * floatUpSpeedScale * Time.fixedDeltaTime);
@@ -46,11 +62,20 @@ public class Bubble : BaseItem
 
     public void SetTeam(Team team)
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
         this.team = team;
     }
-    
+
     public void StartDelayFloat(float size)
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
+
         transform.localScale = originSize * size;
         floatUpSpeedScale = size * 10;
         waitTimer.StartCountDownTimer(waitTime, false, () => isFloating = true);
@@ -58,6 +83,11 @@ public class Bubble : BaseItem
 
     private void OnCollisionEnter(Collision other)
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
+
         if (other.gameObject.layer == LayerMask.NameToLayer("Ceiling"))
         {
             // add score
@@ -69,11 +99,11 @@ public class Bubble : BaseItem
             {
                 ScoreManager.Instance.AddScore(ScoreManager.Team.Red, 2);
             }
-            Destroy(gameObject);
+            Runner.Despawn(GetComponent<NetworkObject>());
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Attack"))
         {
-            Destroy(gameObject);
+            Runner.Despawn(GetComponent<NetworkObject>());
         }
         else
         {
@@ -81,8 +111,12 @@ public class Bubble : BaseItem
         }
     }
 
-    private void OnDestroy()
+    public override void Despawned(NetworkRunner runner, bool hasState)
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
         if (ScoreManager.Instance == null)
         {
             return;

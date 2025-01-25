@@ -24,6 +24,7 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
 
     private void OnEnable()
     {
+        Debug.LogError("NetworkInputController.OnEnable");
         InputActions.Enable();
         EventManager.Instance.onMatchStart += OnMatchStart;
     }
@@ -109,9 +110,7 @@ public class NetworkInputController : BaseInputController, INetworkRunnerCallbac
         var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
         data.Buttons.Set(InputButtons.ShootBubble, loudness > loudnessThreshold);
         data.Loudness = loudness;
-
-        Debug.LogError($"Input: Movement={data.Movement} , Turn={data.Turn}");
-
+        Debug.LogError("Input loadness = " + data.Loudness);
         input.Set(data);
     }
 

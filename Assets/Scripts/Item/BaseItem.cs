@@ -1,7 +1,9 @@
 using System;
 using UnityEngine;
+using Fusion;
 
-public abstract class BaseItem : MonoBehaviour
+public abstract class BaseItem : NetworkBehaviour
 {
-    protected bool isFlying = false;
+    [Networked]
+    protected NetworkBool isFlying { get; set; } = false;
 }

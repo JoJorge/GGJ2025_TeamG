@@ -26,6 +26,7 @@ namespace CliffLeeCL
                 Debug.LogError("I am player: " + stateContext.NetworkRunner.LocalPlayer);
                 InitClient();
             }
+            EventManager.Instance.OnMatchStart();
         }
 
         public override void UpdateState()

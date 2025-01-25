@@ -9,6 +9,9 @@ public class AudioDetector
     
     public void StartRecording(int index)
     {
+        Debug.LogError("Available mics: " + string.Join(", ", Microphone.devices));
+
+
         var deviceName = Microphone.devices[index];
         if (!Microphone.IsRecording(deviceName))
         {

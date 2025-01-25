@@ -1,14 +1,16 @@
+using Fusion;
 using UnityEngine;
 
 public class Attack : BaseItem
 {
-    private float flySpeed = 0;
+    [Networked]
+    private float flySpeed { get; set; } = 0;
     
-    private void FixedUpdate()
+    public override void FixedUpdateNetwork()
     {
         if (isFlying)
         {
-            transform.Translate(transform.forward * flySpeed * Time.fixedDeltaTime, Space.World);
+            transform.Translate(transform.forward * flySpeed * Runner.DeltaTime, Space.World);
         }
     }
 
@@ -20,6 +22,10 @@ public class Attack : BaseItem
     
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if (!Runner.IsServer)
+        {
+            return;
+        }
         Destroy(gameObject);
     }
 }
