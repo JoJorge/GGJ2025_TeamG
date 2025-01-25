@@ -79,7 +79,7 @@ namespace CliffLeeCL
 
                 networkManager.RegisterPlayer(playerRef, player);
                 player.SetCamera(playerRef.Equals(stateContext.NetworkRunner.LocalPlayer));
-                player.GetComponent<NetworkObject>().AssignInputAuthority(playerRef);
+                //player.GetComponent<NetworkObject>().AssignInputAuthority(playerRef);
                 if (playerRef.Equals(stateContext.NetworkRunner.LocalPlayer))
                 {
                     player.StartController();

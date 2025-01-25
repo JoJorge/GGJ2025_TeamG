@@ -74,7 +74,7 @@ public class Bubble : BaseItem
         waitTimer.StartCountDownTimer(waitTime, false, () => isFloating = true);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!Runner.IsServer)
         {
@@ -92,11 +92,12 @@ public class Bubble : BaseItem
             {
                 ScoreManager.Instance.AddScore(ScoreManager.Team.Red, 2);
             }
-            Runner.Despawn(GetComponent<NetworkObject>());
+            Runner.Despawn(Object);
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Attack"))
         {
-            Runner.Despawn(GetComponent<NetworkObject>());
+            Debug.LogError("Shoot!");
+            Runner.Despawn(Object);
         }
         else
         {
