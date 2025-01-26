@@ -37,7 +37,7 @@ public abstract class BasePlayer : MonoBehaviour
         controller.enabled = true;
     }
     
-    public void SetTeam(Team team)
+    public virtual void SetTeam(Team team)
     {
         this.TeamType = team;
     }

@@ -14,6 +14,12 @@ public class Bubble : BaseItem
     [SerializeField]
     private Timer waitTimer;
 
+    [SerializeField]
+    private Vector2 sizeRange = new Vector2(0.5f, 1.5f);
+    
+    [SerializeField]
+    private Vector2 floatUpSpeedRange = new Vector2(5, 15);
+    
     private bool isFloating = false;
     
     private Team team = Team.None;
@@ -47,12 +53,22 @@ public class Bubble : BaseItem
     public void SetTeam(Team team)
     {
         this.team = team;
+        if (team == Team.Blue)
+        {
+            GetComponent<Renderer>().material = GameConfig.Instance.itemConfig.blueBubbleMaterial;
+        }
+        else if (team == Team.Red)
+        {
+            GetComponent<Renderer>().material = GameConfig.Instance.itemConfig.redBubbleMaterial;
+        }
     }
     
+    // size is a float between 0 and 1
     public void StartDelayFloat(float size)
     {
-        transform.localScale = originSize * size;
-        floatUpSpeedScale = size * 10;
+        size = Mathf.Clamp01(size);
+        transform.localScale = Vector3.one * (sizeRange.x + (sizeRange.y - sizeRange.x) * size);
+        floatUpSpeedScale = floatUpSpeedRange.x + (floatUpSpeedRange.y - floatUpSpeedRange.x) * size;
         waitTimer.StartCountDownTimer(waitTime, false, () => isFloating = true);
     }
 

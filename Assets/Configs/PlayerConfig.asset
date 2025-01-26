@@ -17,3 +17,5 @@ MonoBehaviour:
     player: {fileID: 7714788928856047203, guid: 4928465adaad13847a11e42cbeefd7d3, type: 3}
   - playerType: 0
     player: {fileID: 266098286848468027, guid: f205f8a092919c64c9c874c087fcb873, type: 3}
+  blueMaterial: {fileID: 2100000, guid: 59c74a86bd91cbf4e822a4780bef6df1, type: 2}
+  redMaterial: {fileID: 2100000, guid: 2ad630d9a167766438c3dc67f3dbf9ac, type: 2}
