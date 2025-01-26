@@ -9,6 +9,11 @@ public class AudioDetector
     
     public void StartRecording(int index)
     {
+        if (index >= Microphone.devices.Length)
+        {
+            return;
+        }
+        
         var deviceName = Microphone.devices[index];
         if (!Microphone.IsRecording(deviceName))
         {
