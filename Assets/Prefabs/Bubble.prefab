@@ -104,8 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waitTime: 1.5
   waitTimer: {fileID: 1159444440446269876}
-  sizeRange: {x: 1, y: 1.6}
-  floatUpSpeedRange: {x: 3.5, y: 7}
+  sizeRange: {x: 0.5, y: 1.2}
+  floatUpSpeedRange: {x: 1, y: 4}
 --- !u!114 &1159444440446269876
 MonoBehaviour:
   m_ObjectHideFlags: 0
