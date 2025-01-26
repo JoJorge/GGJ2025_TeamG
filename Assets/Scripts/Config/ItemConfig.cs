@@ -28,6 +28,10 @@ public class ItemConfig : ScriptableObject
     [SerializeField]
     private List<ItemPrefabPair> itemPrefabList = new System.Collections.Generic.List<ItemPrefabPair>();
     
+    public Material blueBubbleMaterial;
+    
+    public Material redBubbleMaterial;
+    
     // pair dictionary
     private Dictionary<ItemType, BaseItem> itemPrefabDict = new Dictionary<ItemType, BaseItem>();
     

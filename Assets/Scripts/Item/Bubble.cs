@@ -53,6 +53,14 @@ public class Bubble : BaseItem
     public void SetTeam(Team team)
     {
         this.team = team;
+        if (team == Team.Blue)
+        {
+            GetComponent<Renderer>().material = GameConfig.Instance.itemConfig.blueBubbleMaterial;
+        }
+        else if (team == Team.Red)
+        {
+            GetComponent<Renderer>().material = GameConfig.Instance.itemConfig.redBubbleMaterial;
+        }
     }
     
     // size is a float between 0 and 1

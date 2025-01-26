@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class NormalPlayer : BasePlayer
 {
+    public enum AnimState
+    {
+        Idle,
+        Move,
+        Jump,
+    }
+    
     private const float MAX_TURN_VERTICAL = 60;
     
     private const float MAX_FALL_SPEED = 20;
@@ -36,6 +43,11 @@ public class NormalPlayer : BasePlayer
 
     [SerializeField]
     private Timer attackCdTimer;
+
+    [SerializeField] private Animator characterAnimator;
+    
+    [SerializeField]
+    private Renderer characterRenderer;
     
     private int leftBubbleAmmo = 100;
     
@@ -55,6 +67,8 @@ public class NormalPlayer : BasePlayer
     
     private float moveSpeedScale = 1;
     
+    private AnimState nowAnimState = AnimState.Idle;
+    
     private void Start()
     {
         leftBubbleAmmo = maxBubbleAmmo;
@@ -66,10 +80,12 @@ public class NormalPlayer : BasePlayer
         {
             return;
         }
+        var prvAnimState = nowAnimState;
         // horizontal move
         if (moveSpeed != Vector3.zero)
         {
             controller.Move(moveSpeed * Time.fixedDeltaTime);
+            nowAnimState = AnimState.Move;
         }
         // vertical move
         verticalSpeed -= gravity * Time.fixedDeltaTime;
@@ -89,6 +105,10 @@ public class NormalPlayer : BasePlayer
         {
             verticalSpeed = 0;
         }
+        else
+        {
+            nowAnimState = AnimState.Jump;
+        }
         
         // turn
         if (camera == null)
@@ -99,6 +119,10 @@ public class NormalPlayer : BasePlayer
         if (turnSpeed.x != 0)
         {
             transform.Rotate(Vector3.up, turnSpeed.x * Time.fixedDeltaTime);
+            if (nowAnimState == AnimState.Idle)
+            {
+                nowAnimState = AnimState.Move;
+            }
         }
         if (turnSpeed.y != 0)
         {
@@ -117,6 +141,10 @@ public class NormalPlayer : BasePlayer
             {
                 camera.transform.Rotate(Vector3.right, realTurnSpeed);
             }
+        }
+        if (nowAnimState != prvAnimState)
+        {
+            characterAnimator.Play(nowAnimState.ToString());
         }
     }
 
@@ -141,7 +169,20 @@ public class NormalPlayer : BasePlayer
         isMain = true;
         EventManager.Instance.OnMaxAmmoChanged(this, maxBubbleAmmo);
     }
-    
+
+    public override void SetTeam(Team team)
+    {
+        base.SetTeam(team);
+        if (team == Team.Blue)
+        {
+            characterRenderer.material = GameConfig.Instance.playerConfig.blueMaterial;
+        }
+        else if (team == Team.Red)
+        {
+            characterRenderer.material = GameConfig.Instance.playerConfig.redMaterial;
+        }
+    }
+
     public void AddMoveSpeed(int percent)
     {
         moveSpeedScale += percent / 100f;
