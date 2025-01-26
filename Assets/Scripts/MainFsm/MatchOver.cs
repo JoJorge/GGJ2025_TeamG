@@ -11,11 +11,12 @@ namespace CliffLeeCL
         public override void OnStateEnter()
         {
             isFinished = false;
+            var winner = JudgeWinner();
             SceneManager.UnloadScene(SceneManager.GetSceneByName("Game"));
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             resultUI = GameObject.Instantiate(GameConfig.Instance.uiConfig.ResultUI);
-            resultUI.SetWinner(JudgeWinner());
+            resultUI.SetWinner(winner);
             resultUI.OnConfirm += () => isFinished = true;
         }
 
