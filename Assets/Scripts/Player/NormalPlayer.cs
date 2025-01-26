@@ -255,6 +255,6 @@ public class NormalPlayer : BasePlayer
     
     public Vector3 GetSpawnPosition()
     {
-        return transform.position + camera.transform.forward * 1.5f;
+        return transform.position + camera.transform.forward * 2f;
     }
 }

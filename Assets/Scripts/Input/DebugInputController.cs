@@ -9,7 +9,7 @@ public class DebugInputController : BaseInputController
     
     public Vector2 turnSpeed = Vector2.zero;
     
-    [Range(0.1f, 1)]
+    [Range(0, 1)]
     public float bubbleSize = 0.1f;
 
     [Button, EnableIf("@(player != null)"), DisableInEditorMode]
