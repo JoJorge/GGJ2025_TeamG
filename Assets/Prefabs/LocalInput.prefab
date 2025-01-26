@@ -49,7 +49,7 @@ MonoBehaviour:
   playerInput: {fileID: 0}
   useMicrophone: 1
   microphoneIndex: 0
-  loudnessScalar: 10
+  loudnessScalar: 5
   loudnessThreshold: 0.5
   moveScalar: 10
   turnScalar: 10

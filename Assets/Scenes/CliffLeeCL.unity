@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   microphoneIndex: 0
-  loudnessScalar: 10
+  loudnessScalar: 5
 --- !u!135 &588931496
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -778,6 +778,10 @@ PrefabInstance:
     - target: {fileID: 2998349165516059870, guid: 6c81f1b98ba36e449b274ac143d41ffa, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337291467656008687, guid: 6c81f1b98ba36e449b274ac143d41ffa, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8600392423581122448, guid: 6c81f1b98ba36e449b274ac143d41ffa, type: 3}
       propertyPath: m_Name
