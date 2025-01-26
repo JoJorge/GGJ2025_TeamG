@@ -97,6 +97,14 @@ public class Bubble : BaseItem
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Attack"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnDestroy()
     {
         if (ScoreManager.Instance == null)
