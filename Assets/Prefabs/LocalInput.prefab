@@ -49,9 +49,9 @@ MonoBehaviour:
   playerInput: {fileID: 0}
   useMicrophone: 1
   microphoneIndex: 0
-  loudnessScalar: 0.4
-  loudnessThreshold: 0.3
-  moveScalar: 5
+  loudnessScalar: 3
+  loudnessThreshold: 0.5
+  moveScalar: 6
   turnScalar: 8
   shootBubbleCd: 0.8
   shootBubbleCdTimer: {fileID: 1309006482666084724}
