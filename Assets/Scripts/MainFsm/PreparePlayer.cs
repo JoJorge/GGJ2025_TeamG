@@ -21,6 +21,7 @@ namespace  CliffLeeCL
             {
                 await UniTask.Yield();
             }
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Game"));
         }
 
         private void SpawnPlayers()
