@@ -2,25 +2,20 @@ using System;
 using CliffLeeCL;
 using UnityEngine;
 
-public class Star : BaseItem
+public class Star : FieldItem
 {
     [SerializeField]
     private int addScore = 3;
-    
-    private void OnTriggerEnter(Collider other)
+
+    protected override void CustomEffect(BasePlayer player)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (player.TeamType == Team.Blue)
         {
-            var player = other.GetComponent<BasePlayer>();
-            if (player.TeamType == Team.Blue)
-            {
-                ScoreManager.Instance.AddScore(ScoreManager.Team.Blue, addScore);
-            }
-            else if (player.TeamType == Team.Red)
-            {
-                ScoreManager.Instance.AddScore(ScoreManager.Team.Red, addScore);
-            }
-            Destroy(gameObject);
+            ScoreManager.Instance.AddScore(ScoreManager.Team.Blue, addScore);
+        }
+        else if (player.TeamType == Team.Red)
+        {
+            ScoreManager.Instance.AddScore(ScoreManager.Team.Red, addScore);
         }
     }
 }

@@ -9,6 +9,11 @@ public class ItemConfig : ScriptableObject
         Bubble,
         Attack,
         Star,
+        Boots,
+        BigBottle,
+        Scissors,
+        GoldenBubble,
+        CrazyAttack,
     }
     
     // (Item, prefab) pair

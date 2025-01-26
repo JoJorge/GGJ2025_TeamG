@@ -6,7 +6,9 @@ public class NormalPlayer : BasePlayer
 {
     private const float MAX_TURN_VERTICAL = 60;
     
-    private const float MAX_FALL_SPEED = 10;
+    private const float MAX_FALL_SPEED = 20;
+    
+    private const float MIN_ATTACK_CD = 1f;
 
     [SerializeField]
     private float gravity = 9.8f;
@@ -22,6 +24,12 @@ public class NormalPlayer : BasePlayer
     
     [SerializeField]
     private int bubbleAmmoPerShoot = 10;
+    
+    [SerializeField]
+    private int bubbleAmmoRefillPerSecond = 2;
+    
+    [SerializeField]
+    private float attackCd = 4;
     
     [SerializeField]
     private Timer refillBubbleTimer;
@@ -44,6 +52,8 @@ public class NormalPlayer : BasePlayer
     private int touchBubbleCount = 0;
     
     private bool isAttackCd = false;
+    
+    private float moveSpeedScale = 1;
     
     private void Start()
     {
@@ -132,9 +142,40 @@ public class NormalPlayer : BasePlayer
         EventManager.Instance.OnMaxAmmoChanged(this, maxBubbleAmmo);
     }
     
+    public void AddMoveSpeed(int percent)
+    {
+        moveSpeedScale += percent / 100f;
+    }
+    
+    public void UpgradeBubble(int addMaxAmmo, int addAmmoRefill, bool isRefill = true)
+    {
+        maxBubbleAmmo += addMaxAmmo;
+        bubbleAmmoRefillPerSecond += addAmmoRefill;
+        if (isRefill)
+        {
+            leftBubbleAmmo = maxBubbleAmmo;
+        }
+        if (isMain)
+        {
+            EventManager.Instance.OnMaxAmmoChanged(this, maxBubbleAmmo);
+            EventManager.Instance.OnCurrentAmmoChanged(this, leftBubbleAmmo);
+        }
+    }
+    
+    public void DecreaseAttackCd(float decreaseTime, bool resetCd = true)
+    {
+        attackCd = Mathf.Max(attackCd - decreaseTime, MIN_ATTACK_CD);
+        if (resetCd)
+        {
+            attackCdTimer.StopTimer();
+            isAttackCd = false;
+        }
+    }
+    
     public override void StartMove(Vector2 startSpeed)
     {
         moveSpeed = startSpeed.y * transform.forward + startSpeed.x * transform.right;
+        moveSpeed *= moveSpeedScale;
     }
     
     public override void StopMove()
@@ -193,7 +234,7 @@ public class NormalPlayer : BasePlayer
             return;
         }
         isAttackCd = true;
-        attackCdTimer.StartCountDownTimer(4, false, () => isAttackCd = false);
+        attackCdTimer.StartCountDownTimer(attackCd, false, () => isAttackCd = false);
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
         var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
         attack.Fly(flySpeed);
@@ -201,7 +242,7 @@ public class NormalPlayer : BasePlayer
     
     private void OnRefillTimerEnd()
     {
-        leftBubbleAmmo = Mathf.Min(leftBubbleAmmo + 2, maxBubbleAmmo);
+        leftBubbleAmmo = Mathf.Min(leftBubbleAmmo + bubbleAmmoRefillPerSecond, maxBubbleAmmo);
         if (leftBubbleAmmo < maxBubbleAmmo)
         {
             refillBubbleTimer.StartCountDownTimer(1, false, OnRefillTimerEnd);
