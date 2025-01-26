@@ -57,18 +57,6 @@ public class LocalMultiplayerInputController : BaseInputController
 
     private void OnActionTriggered(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            Debug.Log($"Action started: {context.action.name}");
-        }
-        if (context.performed)
-        {
-            Debug.Log($"Action performed: {context.action.name}");
-        }
-        if (context.canceled)
-        {
-            Debug.Log($"Action canceled: {context.action.name}");
-        }
         if (context.action.name == "Move")
         {
             player.StartMove(context.ReadValue<Vector2>() * moveScalar);
@@ -77,7 +65,6 @@ public class LocalMultiplayerInputController : BaseInputController
         {
             player.StartTurn(context.ReadValue<Vector2>() * turnScalar);
         }
-        
         if (context.action.name == "Jump")
         {
             player.Jump();
@@ -86,7 +73,7 @@ public class LocalMultiplayerInputController : BaseInputController
         {
             player.ShootAttack();
         }
-        if (!useMicrophone && context.action.name == "SecondaryAttack")
+        if (context.action.name == "SecondaryAttack")
         {
             player.ShootBubble(1);
         }
