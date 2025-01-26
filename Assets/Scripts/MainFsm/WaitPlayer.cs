@@ -10,8 +10,11 @@ namespace  CliffLeeCL
 
         public override void OnStateEnter()
         {
-            WaitUntilAllPlayerJoins();
+            // WaitUntilAllPlayerJoins();
+            WaitUntilStart();
         }
+
+
 
         public override void UpdateState()
         {
@@ -20,6 +23,17 @@ namespace  CliffLeeCL
                 stateContext.SwitchState("PreparePlayer");
             }
         }
+
+        private async UniTask WaitUntilStart() 
+        {
+            var mainMenuUI = GameObject.Instantiate(GameConfig.Instance.mainMenuConfig.MainMenuUI);
+            bool exitMenu = false;
+            mainMenuUI.OnStart += () => exitMenu = true;
+            await UniTask.WaitUntil(() => exitMenu);
+            GameObject.Destroy(mainMenuUI.gameObject);
+            isFinished = true;
+        }
+
         private async UniTask WaitUntilAllPlayerJoins()
         {
             await stateContext.NetworkManager.WaitForAllPlayers();

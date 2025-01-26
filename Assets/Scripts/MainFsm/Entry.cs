@@ -16,11 +16,6 @@ namespace CliffLeeCL
 
         private async UniTask Init()
         { 
-            op = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
-            while (!op.isDone)
-            {
-                await UniTask.Yield();
-            }
             if (stateContext.IsUseNetwork)
             {
                 await stateContext.NetworkManager.ConnectToServer();
@@ -38,7 +33,7 @@ namespace CliffLeeCL
                 }
                 else
                 {
-                    stateContext.SwitchState("PreparePlayer");
+                    stateContext.SwitchState("MainMenu");
                 }
             }
         }
