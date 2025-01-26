@@ -48,6 +48,9 @@ public class NormalPlayer : BasePlayer
     
     [SerializeField]
     private Renderer characterRenderer;
+
+    [SerializeField]
+    private GameObject attackObj;
     
     private int leftBubbleAmmo = 100;
     
@@ -275,7 +278,11 @@ public class NormalPlayer : BasePlayer
             return;
         }
         isAttackCd = true;
-        attackCdTimer.StartCountDownTimer(attackCd, false, () => isAttackCd = false);
+        attackObj.SetActive(false);
+        attackCdTimer.StartCountDownTimer(attackCd, false, () => {
+            isAttackCd = false;
+            attackObj.SetActive(true);
+        });
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
         var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
         attack.Fly(flySpeed);
