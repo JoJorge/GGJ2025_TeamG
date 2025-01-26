@@ -10,6 +10,9 @@ public class FireCd : MonoBehaviour
     [SerializeField]
     private Timer cdTimer;
     
+    [SerializeField]
+    private Team team;
+    
     private bool isCd = false;
     
     private float cdTime = 0;
@@ -34,6 +37,11 @@ public class FireCd : MonoBehaviour
     
     private void StartAttackCd(object sender, float cd)
     {
+        var normalPlayer = sender as NormalPlayer;
+        if (normalPlayer == null || normalPlayer.TeamType != team)
+        {
+            return;
+        }
         isCd = true;
         cdTime = cd;
         cdTimer.StartCountDownTimer(cd, false, () => {

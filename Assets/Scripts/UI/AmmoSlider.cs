@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class AmmoSlider : MonoBehaviour
 {
+   public Team team;
+   
    public Slider slider;
 
    private void OnEnable()
@@ -21,11 +23,21 @@ public class AmmoSlider : MonoBehaviour
 
    private void SetCurrentAmmo(object sender, int ammo)
    {
+      var normalPlayer = sender as NormalPlayer;
+      if (normalPlayer == null || normalPlayer.TeamType != team)
+      {
+         return;
+      }
       slider.value = ammo;
    }
 
    private void SetMaxAmmo(object sender, int ammo)
    {
+      var normalPlayer = sender as NormalPlayer;
+      if (normalPlayer == null || normalPlayer.TeamType != team)
+      {
+         return;
+      }
       slider.maxValue = ammo;
    }
    
