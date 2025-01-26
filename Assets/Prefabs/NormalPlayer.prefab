@@ -964,7 +964,7 @@ MonoBehaviour:
   camera: {fileID: 7456080920841177188}
   gravity: 2
   jumpScale: 0.5
-  flySpeed: 10
+  flySpeed: 15
   maxBubbleAmmo: 100
   bubbleAmmoPerShoot: 10
   bubbleAmmoRefillPerSecond: 5
