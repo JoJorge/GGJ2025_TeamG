@@ -516,9 +516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886c0955a833eba44acca7caf1988a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matchStartTime: 3
+  matchStartTime: 5
   matchStartTimer: {fileID: 0}
-  matchRoundTime: 10
+  matchRoundTime: 60
   matchRoundTimer: {fileID: 0}
   networkRunner: {fileID: 382117294}
   networkManager: {fileID: 382117296}
