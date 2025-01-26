@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ItemSpawner : MonoBehaviour
 {
@@ -26,5 +28,13 @@ public class ItemSpawner : MonoBehaviour
         var itemPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(itemType);
         item = GameObject.Instantiate<BaseItem>(itemPrefab);
         item.transform.position = spawnRoot.position;
+    }
+
+    private void OnDestroy()
+    {
+        if (item != null)
+        {
+            Destroy(item.gameObject);
+        }
     }
 }

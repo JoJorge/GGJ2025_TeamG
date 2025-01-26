@@ -29,10 +29,12 @@ namespace  CliffLeeCL
             
             Debug.LogError("PreparePlayer for player " + stateContext.NetworkRunner.LocalPlayer.AsIndex);
             var player = GameObject.Instantiate<BasePlayer>(playerPrefab);
-            player.transform.position = FieldManager.Instance.spawnRoot.position + Vector3.up;
+            player.SetTeam(Team.Blue);
+            var spawnRoot = player.TeamType == Team.Red ? FieldManager.Instance.redSpawnRoot : FieldManager.Instance.blueSpawnRoot;
+            player.transform.position = spawnRoot.position + Vector3.up;
             //player.SetCamera(false);
             player.StartController();
-            player.SetTeam(Team.Blue);
+            
             if (player is NormalPlayer)
             {
                 (player as NormalPlayer).SetMain();

@@ -14,6 +14,7 @@ namespace CliffLeeCL
             stateContext.matchStartTimer.StartCountDownTimer(stateContext.matchStartTime, false, OnMatchStart);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            FieldManager.Instance.StartSpawnItem();
         }
 
         public override void OnStateExit()

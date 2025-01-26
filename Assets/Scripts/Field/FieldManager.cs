@@ -1,12 +1,15 @@
 using System;
 using CliffLeeCL;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class FieldManager : MonoBehaviour
 {
     private const float SPAWN_CD = 30;
     
-    public Transform spawnRoot;
+    public Transform blueSpawnRoot;
+
+    public Transform redSpawnRoot;
     
     private ItemSpawner[] itemSpawnerArray;
     
@@ -32,6 +35,10 @@ public class FieldManager : MonoBehaviour
     private void Start()
     {
         itemSpawnerArray = GetComponentsInChildren<ItemSpawner>();
+    }
+    
+    public void StartSpawnItem()
+    {
         SpawnAllItem();
         spawnItemTimer.StartCountDownTimer(SPAWN_CD, true, SpawnAllItem);
     }
