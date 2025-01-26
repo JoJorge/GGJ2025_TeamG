@@ -20,9 +20,19 @@ public class Bubble : BaseItem
     [SerializeField]
     private Vector2 floatUpSpeedRange = new Vector2(5, 15);
     
+    [SerializeField]
+    private float flySpeed = 5;
+    
+    [SerializeField]
+    private float flyTime = 0.5f;
+    
+    private bool isWaiting = false;
+    
     private bool isFloating = false;
     
     private Team team = Team.None;
+    
+    protected bool isFlying = false;
     
     private void Awake()
     {
@@ -44,7 +54,11 @@ public class Bubble : BaseItem
 
     private void FixedUpdate()
     {
-        if (isFloating)
+        if (isFlying)
+        {
+            transform.Translate(transform.forward * flySpeed * Time.fixedDeltaTime, Space.World);
+        }
+        else if (isFloating)
         {
             transform.Translate(Vector3.up * floatUpSpeedScale * Time.fixedDeltaTime);
         }
@@ -69,7 +83,16 @@ public class Bubble : BaseItem
         size = Mathf.Clamp01(size);
         transform.localScale = Vector3.one * (sizeRange.x + (sizeRange.y - sizeRange.x) * size);
         floatUpSpeedScale = floatUpSpeedRange.x + (floatUpSpeedRange.y - floatUpSpeedRange.x) * size;
-        waitTimer.StartCountDownTimer(waitTime, false, () => isFloating = true);
+        isWaiting = true;
+        isFlying = true;
+        waitTimer.StartCountDownTimer(flyTime, false, () => {
+            isFlying = false;
+            isWaiting = true;
+            waitTimer.StartCountDownTimer(waitTime, false, () => { 
+                isFloating = true; 
+                isWaiting = false;
+            });
+        });
     }
 
     private void OnCollisionEnter(Collision other)
