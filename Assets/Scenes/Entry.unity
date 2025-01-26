@@ -552,7 +552,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50af2fdf5057d1445a28d7adb26b55aa, type: 3}
---- !u!1001 &1716428151
+--- !u!1001 &1419180860
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -692,7 +692,7 @@ MonoBehaviour:
   playerConfig: {fileID: 11400000, guid: de7a2269011165842b5c98b33b218362, type: 2}
   inputCtrlConfig: {fileID: 11400000, guid: 9b015b42bb2ee6e499760aebdbaf9cbc, type: 2}
   itemConfig: {fileID: 11400000, guid: 677a869e24bbc9f4981427712fa99a60, type: 2}
-  uiConfig: {fileID: 11400000, guid: 2ca4cc30059a3524bbbe6ad2cf389607, type: 2}
+  uiConfig: {fileID: 0}
 --- !u!4 &2018869823
 Transform:
   m_ObjectHideFlags: 0
@@ -717,4 +717,4 @@ SceneRoots:
   - {fileID: 815409902}
   - {fileID: 610637747}
   - {fileID: 1373204859}
-  - {fileID: 1716428151}
+  - {fileID: 1419180860}
