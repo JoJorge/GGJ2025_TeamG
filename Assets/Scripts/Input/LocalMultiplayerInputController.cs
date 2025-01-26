@@ -17,6 +17,14 @@ public class LocalMultiplayerInputController : BaseInputController
     public float turnScalar = 1;
 
     private AudioDetector audioDetector = new();
+    
+    [SerializeField]
+    private float shootBubbleCd = 0.3f;
+    
+    [SerializeField]
+    private Timer shootBubbleCdTimer;
+    
+    private bool isShootBubbleCd = false;
  
     private void Start()
     {
@@ -45,12 +53,16 @@ public class LocalMultiplayerInputController : BaseInputController
 
     void Update()
     {
-        if (useMicrophone)
+        if (useMicrophone && !isShootBubbleCd)
         {
             var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
             if (loudness > loudnessThreshold)
             {
                 player.ShootBubble(loudness);
+                isShootBubbleCd = true;
+                shootBubbleCdTimer.StartCountDownTimer(shootBubbleCd, false, () => { 
+                    isShootBubbleCd = false; 
+                });
             }
         }
     }
@@ -73,9 +85,13 @@ public class LocalMultiplayerInputController : BaseInputController
         {
             player.ShootAttack();
         }
-        if (context.action.name == "SecondaryAttack")
+        if (context.action.name == "SecondaryAttack" && !isShootBubbleCd)
         {
-            player.ShootBubble(1);
+            player.ShootBubble(0.5f);
+            isShootBubbleCd = true;
+            shootBubbleCdTimer.StartCountDownTimer(shootBubbleCd, false, () => { 
+                isShootBubbleCd = false; 
+            });
         }
     }
 }
