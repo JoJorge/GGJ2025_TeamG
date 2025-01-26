@@ -12,16 +12,11 @@ namespace CliffLeeCL
             inputActions.Enable();
             if (inputActions.Player.Exit.triggered)
             {
-                Debug.LogError("Exit");
                 stateContext.matchRoundTimer.StopCountDownTimer();
                 EventManager.Instance.OnMatchOver();
                 SceneManager.UnloadScene(SceneManager.GetSceneByName("Game"));
                 stateContext.SwitchState("MainMenu");
 
-            }
-            if (inputActions.Player.Attack.triggered)
-            {
-                Debug.LogError("AUU");
             }
         }
 
