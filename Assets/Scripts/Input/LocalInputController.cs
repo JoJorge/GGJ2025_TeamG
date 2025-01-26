@@ -24,6 +24,7 @@ public class LocalInputController : BaseInputController
     private Timer shootBubbleCdTimer;
     
     private bool isShootBubbleCd = false;
+    private bool isMatchStart = false;
     
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class LocalInputController : BaseInputController
     
     private void OnMatchStart()
     {
+        isMatchStart = true;
         if (useMicrophone)
         {
             audioDetector.StartRecording(microphoneIndex);
@@ -52,6 +54,11 @@ public class LocalInputController : BaseInputController
 
     void Update()
     {
+        if (!isMatchStart)
+        {
+            return;
+        }
+        
         player.StartMove(inputActions.Player.Move.ReadValue<Vector2>() * moveScalar);
         player.StartTurn(inputActions.Player.Look.ReadValue<Vector2>() * turnScalar);
         

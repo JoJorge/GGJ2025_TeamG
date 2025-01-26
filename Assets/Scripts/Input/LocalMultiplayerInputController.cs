@@ -25,6 +25,7 @@ public class LocalMultiplayerInputController : BaseInputController
     private Timer shootBubbleCdTimer;
     
     private bool isShootBubbleCd = false;
+    private bool isMatchStart = false;
  
     private void Start()
     {
@@ -45,6 +46,7 @@ public class LocalMultiplayerInputController : BaseInputController
     
     private void OnMatchStart()
     {
+        isMatchStart = true;
         if (useMicrophone)
         {
             audioDetector.StartRecording(microphoneIndex);
@@ -53,6 +55,11 @@ public class LocalMultiplayerInputController : BaseInputController
 
     void Update()
     {
+        if (!isMatchStart)
+        {
+            return;
+        }
+        
         if (useMicrophone && !isShootBubbleCd)
         {
             var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
@@ -69,6 +76,10 @@ public class LocalMultiplayerInputController : BaseInputController
 
     private void OnActionTriggered(InputAction.CallbackContext context)
     {
+        if (!isMatchStart)
+        {
+            return;
+        }
         if (context.action.name == "Move")
         {
             player.StartMove(context.ReadValue<Vector2>() * moveScalar);
