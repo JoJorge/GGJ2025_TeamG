@@ -13,7 +13,7 @@ public class ItemSpawner : MonoBehaviour
     
     public void TrySpawnItem()
     {
-        if (item != null)
+        if (item != null || GameConfig.Instance?.itemConfig == null)
         {
             return;
         }
