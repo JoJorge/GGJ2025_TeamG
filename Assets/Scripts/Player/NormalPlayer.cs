@@ -72,6 +72,14 @@ public class NormalPlayer : BasePlayer
     
     private AnimState nowAnimState = AnimState.Idle;
     
+    private int touchBubbleFrame = 0;
+
+    private bool IsTouchingBubble
+    {
+        get;
+        set;
+    } = false;
+
     private void Start()
     {
         leftBubbleAmmo = maxBubbleAmmo;
@@ -157,11 +165,39 @@ public class NormalPlayer : BasePlayer
         }
     }
 
+    private void LateUpdate()
+    {
+        const float TOUCH_BUBBLE_FRAME = 5;
+        var nowFrame = Time.frameCount;
+        if (IsTouchingBubble && nowFrame - touchBubbleFrame > TOUCH_BUBBLE_FRAME)
+        {
+            IsTouchingBubble = false;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+        {
+            IsTouchingBubble = true;
+            touchBubbleFrame = Time.frameCount;
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
         {
             touchBubbleCount++;
+        }
+    }
+    
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+        {
+            IsTouchingBubble = true;
+            touchBubbleFrame = Time.frameCount;
         }
     }
     
@@ -259,7 +295,7 @@ public class NormalPlayer : BasePlayer
         {
             return;
         }
-        if (touchBubbleCount > 0)
+        if (touchBubbleCount > 0 || IsTouchingBubble)
         {
             return;
         }
