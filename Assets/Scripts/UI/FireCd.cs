@@ -34,6 +34,7 @@ public class FireCd : MonoBehaviour
     
     private void StartAttackCd(object sender, float cd)
     {
+        isCd = true;
         cdTime = cd;
         cdTimer.StartCountDownTimer(cd, false, () => {
             isCd = false;
