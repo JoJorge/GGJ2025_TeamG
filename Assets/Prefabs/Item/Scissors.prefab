@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5186024100731061011}
   m_Father: {fileID: 0}
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3790453851018684c927a3388223e3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 10
-  decreaseAttackCD: 0.1
+  rotateSpeed: 50
+  decreaseAttackCD: 0.5
 --- !u!65 &3673754722338213908
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67,7 +67,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8, y: 0.8, z: 0.8}
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4643998518188303608
 PrefabInstance:
@@ -161,6 +161,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1961156762655719089, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0148
+      objectReference: {fileID: 0}
     - target: {fileID: 2475863288430104461, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -173,6 +177,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5780957235298947571, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 94bcbb04fa21e0b46a6eee876630e9d2, type: 2}
     - target: {fileID: 7504924094928353884, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -182,7 +190,12 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3889987309386925154, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
+    - {fileID: -1500838157198093432, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
+    - {fileID: -3086944861826413830, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
+    - {fileID: 3890841676859953670, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
+    - {fileID: -8531233740259397374, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2016d6fbf50eda943ad2374e5f45a8a1, type: 3}
