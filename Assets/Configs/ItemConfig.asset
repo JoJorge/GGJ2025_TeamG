@@ -25,3 +25,5 @@ MonoBehaviour:
     itemPrefab: {fileID: 7150698882022617023, guid: 58e02dd077208e24b848a68215f98dcc, type: 3}
   - itemType: 3
     itemPrefab: {fileID: 5733520744148843564, guid: ba27809fa09187547b0ddaebfbe2cea2, type: 3}
+  blueBubbleMaterial: {fileID: 2100000, guid: e799624f83f5de74e9fe1a1df02a1def, type: 2}
+  redBubbleMaterial: {fileID: 2100000, guid: 85277f94c88275342be01983dcb8b3bc, type: 2}

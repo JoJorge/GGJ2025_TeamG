@@ -53,6 +53,11 @@ namespace CliffLeeCL
         public event EventHandler<int> onMaxAmmoChanged;
         
         /// <summary>
+        /// The event is called when start attack CD
+        /// </summary>
+        public event EventHandler<float> onAttackCDStart;
+        
+        /// <summary>
         /// The function is called when a match start.
         /// </summary>
         public void OnMatchStart()
@@ -86,6 +91,11 @@ namespace CliffLeeCL
         public void OnMaxAmmoChanged(object sender, int maxAmount)
         {
             onMaxAmmoChanged?.Invoke(sender, maxAmount);
+        }
+        
+        public void OnAttackCDStart(object sender, float cd)
+        {
+            onAttackCDStart?.Invoke(sender, cd);
         }
     }
 }

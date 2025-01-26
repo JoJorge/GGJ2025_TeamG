@@ -23,6 +23,10 @@ public class PlayerConfig : ScriptableObject
     [SerializeField]
     private List<PlayerTypePrefabPair> playerTypePrefabList = new List<PlayerTypePrefabPair>();
 
+    public Material blueMaterial;
+    
+    public Material redMaterial;
+    
     // pair dictionary
     private Dictionary<PlayerType, BasePlayer> playerTypePrefabDict = new Dictionary<PlayerType, BasePlayer>();
     
