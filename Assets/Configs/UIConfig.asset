@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f0896b9d549bd044afdad64aaacce15, type: 3}
-  m_Name: MainMenuConfig
+  m_Name: UIConfig
   m_EditorClassIdentifier: 
   MainMenuUI: {fileID: 6479064668039680728, guid: e9327644323afd749b4f56067851703d, type: 3}
+  ResultUI: {fileID: 448176334320918530, guid: e8b6b5eb4c4acb544802afcb8dfba9f0, type: 3}

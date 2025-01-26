@@ -11,7 +11,8 @@ namespace  CliffLeeCL
 
         public override void OnStateEnter()
         {
-            mainMenuUI = GameObject.Instantiate(GameConfig.Instance.mainMenuConfig.MainMenuUI);
+            isFinished = false;
+            mainMenuUI = GameObject.Instantiate(GameConfig.Instance.uiConfig.MainMenuUI);
             mainMenuUI.OnStart += () => isFinished = true;
         }
 

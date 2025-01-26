@@ -26,7 +26,7 @@ namespace  CliffLeeCL
 
         private async UniTask WaitUntilStart() 
         {
-            var mainMenuUI = GameObject.Instantiate(GameConfig.Instance.mainMenuConfig.MainMenuUI);
+            var mainMenuUI = GameObject.Instantiate(GameConfig.Instance.uiConfig.MainMenuUI);
             bool exitMenu = false;
             mainMenuUI.OnStart += () => exitMenu = true;
             await UniTask.WaitUntil(() => exitMenu);

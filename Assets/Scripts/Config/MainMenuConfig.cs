@@ -1,8 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MainMenuConfig", menuName = "Scriptable Objects/MainMenuConfig")]
-public class MainMenuConfig : ScriptableObject
+[CreateAssetMenu(fileName = "UIConfig", menuName = "Scriptable Objects/UIConfig")]
+public class UIConfig : ScriptableObject
 {
     public MainMenuUI MainMenuUI;
+    public ResultUI ResultUI;
     
 }
