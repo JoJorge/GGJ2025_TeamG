@@ -4609,7 +4609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f9bf9d1d29eb145bae4ced0e34ef23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRoot: {fileID: 3673794628821225234}
+  blueSpawnRoot: {fileID: 3673794628821225234}
+  redSpawnRoot: {fileID: 943406468202922570}
   spawnItemTimer: {fileID: 753997451568110354}
 --- !u!1 &5606029624871221462
 GameObject:
