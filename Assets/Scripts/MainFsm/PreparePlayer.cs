@@ -1,4 +1,6 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace  CliffLeeCL
 {
@@ -6,6 +8,23 @@ namespace  CliffLeeCL
     {
         public override void OnStateEnter()
         {
+            LoadGameScene()
+                .ContinueWith(SpawnPlayers)
+                .ContinueWith(() => stateContext.SwitchState("MatchProcess"))
+                .Forget();
+        }
+
+        private async UniTask LoadGameScene()
+        { 
+            var op = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
+            while (!op.isDone)
+            {
+                await UniTask.Yield();
+            }
+        }
+
+        private void SpawnPlayers() 
+        { 
             var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Normal);
             
             Debug.LogError("PreparePlayer for player " + stateContext.NetworkRunner.LocalPlayer.AsIndex);
@@ -27,7 +46,6 @@ namespace  CliffLeeCL
             }
 
             inputCtrl.SetPlayer(player);
-            stateContext.SwitchState("MatchProcess");
         }
 
         public override void UpdateState()
