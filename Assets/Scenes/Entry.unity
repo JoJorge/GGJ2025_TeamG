@@ -640,7 +640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matchStartTime: 5
   matchStartTimer: {fileID: 0}
-  matchRoundTime: 60
+  matchRoundTime: 180
   matchRoundTimer: {fileID: 0}
   networkRunner: {fileID: 382117294}
   networkManager: {fileID: 382117296}
