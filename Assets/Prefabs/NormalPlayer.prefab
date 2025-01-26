@@ -967,8 +967,8 @@ MonoBehaviour:
   flySpeed: 10
   maxBubbleAmmo: 100
   bubbleAmmoPerShoot: 10
-  bubbleAmmoRefillPerSecond: 2
-  attackCd: 4
+  bubbleAmmoRefillPerSecond: 5
+  attackCd: 2
   refillBubbleTimer: {fileID: 167106340500390644}
   attackCdTimer: {fileID: 7676789324707474882}
   characterAnimator: {fileID: 5963396694230804123}
