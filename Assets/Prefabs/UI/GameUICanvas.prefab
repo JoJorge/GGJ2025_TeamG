@@ -311,10 +311,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1447611689239499812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 90, y: 256}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -40, y: 40}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5541958436516318881
 CanvasRenderer:
@@ -368,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 8221370569075287046}
   cdTimer: {fileID: 8107054775597470561}
+  team: 2
 --- !u!114 &8107054775597470561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2005,6 +2006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4228fa911fd0acd48b35fd6934edd201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 2
   slider: {fileID: 632338580413283989}
 --- !u!1 &7497472074446743771
 GameObject:
@@ -2184,6 +2186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4228fa911fd0acd48b35fd6934edd201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  team: 1
   slider: {fileID: 1753007906926508946}
 --- !u!1 &8600392423581122448
 GameObject:
@@ -2484,8 +2487,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -90, y: 256}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -40, y: 40}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4206311787948450657
 CanvasRenderer:
@@ -2539,6 +2542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 2019749548970809471}
   cdTimer: {fileID: 4561843064539013486}
+  team: 1
 --- !u!114 &4561843064539013486
 MonoBehaviour:
   m_ObjectHideFlags: 0

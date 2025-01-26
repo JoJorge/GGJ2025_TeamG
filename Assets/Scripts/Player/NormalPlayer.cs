@@ -176,6 +176,7 @@ public class NormalPlayer : BasePlayer
     public void SetMain()
     {
         isMain = true;
+        EventManager.Instance.OnCurrentAmmoChanged(this, leftBubbleAmmo);
         EventManager.Instance.OnMaxAmmoChanged(this, maxBubbleAmmo);
     }
 
