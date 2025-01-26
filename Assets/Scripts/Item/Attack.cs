@@ -4,6 +4,8 @@ public class Attack : BaseItem
 {
     private float flySpeed = 0;
     
+    protected bool isFlying = false;
+    
     private void FixedUpdate()
     {
         if (isFlying)
@@ -20,6 +22,10 @@ public class Attack : BaseItem
     
     protected virtual void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Bubble"))
+        {
+            return;
+        }
         Destroy(gameObject);
     }
 }
