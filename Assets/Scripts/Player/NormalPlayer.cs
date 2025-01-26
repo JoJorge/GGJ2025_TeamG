@@ -283,6 +283,7 @@ public class NormalPlayer : BasePlayer
             isAttackCd = false;
             attackObj.SetActive(true);
         });
+        EventManager.Instance.OnAttackCDStart(this, attackCd);
         var attackPrefab = GameConfig.Instance.itemConfig.GetItemPrefab(ItemConfig.ItemType.Attack);
         var attack = Instantiate(attackPrefab, GetSpawnPosition(), camera.transform.rotation) as Attack;
         attack.Fly(flySpeed);
