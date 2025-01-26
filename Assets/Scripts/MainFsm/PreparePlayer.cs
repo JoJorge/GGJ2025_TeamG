@@ -23,13 +23,19 @@ namespace  CliffLeeCL
             }
         }
 
-        private void SpawnPlayers() 
-        { 
+        private void SpawnPlayers()
+        {
+            SpawnPlayer(Team.Blue);
+            SpawnPlayer(Team.Red);
+        }
+
+        private void SpawnPlayer(Team team)
+        {
             var playerPrefab = GameConfig.Instance.playerConfig.GetPlayerPrefab(PlayerConfig.PlayerType.Normal);
             
             Debug.LogError("PreparePlayer for player " + stateContext.NetworkRunner.LocalPlayer.AsIndex);
             var player = GameObject.Instantiate<BasePlayer>(playerPrefab);
-            player.SetTeam(Team.Blue);
+            player.SetTeam(team);
             var spawnRoot = player.TeamType == Team.Red ? FieldManager.Instance.redSpawnRoot : FieldManager.Instance.blueSpawnRoot;
             player.transform.position = spawnRoot.position + Vector3.up;
             //player.SetCamera(false);
