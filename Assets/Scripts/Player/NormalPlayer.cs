@@ -104,6 +104,12 @@ public class NormalPlayer : BasePlayer
             isGrounded = true;
             verticalSpeed = 0;
         }
+
+        if (verticalSpeed < 0)
+        {
+            isGrounded = false;
+        }
+
         if (isGrounded)
         {
             verticalSpeed = 0;
