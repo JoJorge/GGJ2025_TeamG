@@ -16,6 +16,6 @@ MonoBehaviour:
   - inputCtrlType: 2
     inputCtrl: {fileID: 886528454218177745, guid: 6e8a6348e7eb4c449917ab84177125db, type: 3}
   - inputCtrlType: 0
-    inputCtrl: {fileID: -9119334611511786495, guid: 3ca1ceea3c72b034690854c2d636556a, type: 3}
+    inputCtrl: {fileID: 6745456627393332018, guid: 3ca1ceea3c72b034690854c2d636556a, type: 3}
   - inputCtrlType: 1
     inputCtrl: {fileID: 361370779143661956, guid: ec2e1e356a5201a4f8e49f5c3d271ad9, type: 3}

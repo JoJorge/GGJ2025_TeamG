@@ -1,9 +1,11 @@
 using CliffLeeCL;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class LocalInputController : BaseInputController
+public class LocalMultiplayerInputController : BaseInputController
 {
+    public PlayerInput playerInput;
     public bool useMicrophone = true;
     [ShowIf("useMicrophone")]
     public int microphoneIndex = 0;
@@ -13,24 +15,23 @@ public class LocalInputController : BaseInputController
     public float loudnessThreshold = 0.5f;
     public float moveScalar = 1;
     public float turnScalar = 1;
-    
-    private InputSystem_Actions inputActions;
+
     private AudioDetector audioDetector = new();
  
-    private void Awake()
+    private void Start()
     {
-        inputActions = new InputSystem_Actions();
+        playerInput = player.GetComponent<PlayerInput>();
+        playerInput.onActionTriggered += OnActionTriggered;
+        microphoneIndex = playerInput.playerIndex;
     }
 
     private void OnEnable()
     {
-        inputActions.Enable();
         EventManager.Instance.onMatchStart += OnMatchStart;
     }
     
     private void OnDisable()
     {
-        inputActions.Disable();
         EventManager.Instance.onMatchStart -= OnMatchStart;
     }
     
@@ -44,19 +45,6 @@ public class LocalInputController : BaseInputController
 
     void Update()
     {
-        player.StartMove(inputActions.Player.Move.ReadValue<Vector2>() * moveScalar);
-        player.StartTurn(inputActions.Player.Look.ReadValue<Vector2>() * turnScalar);
-        
-        if (inputActions.Player.Jump.triggered)
-        {
-            player.Jump();
-        }
-        
-        if (inputActions.Player.Attack.triggered)
-        {
-            player.ShootAttack();
-        } 
-        
         if (useMicrophone)
         {
             var loudness = audioDetector.GetMicrophoneLoudness(microphoneIndex) * loudnessScalar;
@@ -65,9 +53,29 @@ public class LocalInputController : BaseInputController
                 player.ShootBubble(loudness);
             }
         }
-        else if (inputActions.Player.SecondaryAttack.triggered)
+    }
+
+    private void OnActionTriggered(InputAction.CallbackContext context)
+    {
+        if (context.action.name == "Move")
         {
-            player.ShootBubble(1);  
+            player.StartMove(context.ReadValue<Vector2>() * moveScalar);
+        }
+        if (context.action.name == "Look")
+        {
+            player.StartTurn(context.ReadValue<Vector2>() * turnScalar);
+        }
+        if (context.action.name == "Jump")
+        {
+            player.Jump();
+        }
+        if (context.action.name == "Attack")
+        {
+            player.ShootAttack();
+        }
+        if (context.action.name == "SecondaryAttack")
+        {
+            player.ShootBubble(1);
         }
     }
 }
