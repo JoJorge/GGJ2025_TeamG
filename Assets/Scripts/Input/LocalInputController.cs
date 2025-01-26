@@ -1,7 +1,6 @@
 using CliffLeeCL;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class LocalInputController : BaseInputController
 {
@@ -20,9 +19,9 @@ public class LocalInputController : BaseInputController
  
     private void Awake()
     {
-        inputActions = new InputSystem_Actions();     
+        inputActions = new InputSystem_Actions();
     }
-    
+
     private void OnEnable()
     {
         inputActions.Enable();

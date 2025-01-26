@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8829555297343312778}
-  - component: {fileID: -9119334611511786495}
+  - component: {fileID: 6745456627393332018}
   m_Layer: 0
   m_Name: LocalInput
   m_TagString: Untagged
@@ -32,22 +32,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9119334611511786495
+--- !u!114 &6745456627393332018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9178239449238110145}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 181c3b9f523e2b44685026d05243531e, type: 3}
+  m_Script: {fileID: 11500000, guid: 73a4e514001b8ba44908163f3033ca01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  useMicrophone: 0
+  playerInput: {fileID: 0}
+  useMicrophone: 1
   microphoneIndex: 0
   loudnessScalar: 10
   loudnessThreshold: 0.5
-  moveScalar: 5
+  moveScalar: 10
   turnScalar: 10

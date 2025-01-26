@@ -8,7 +8,7 @@ public abstract class BasePlayer : MonoBehaviour
     protected CharacterController controller;
 
     [SerializeField]
-    protected Camera camera;
+    public Camera camera;
     
     public Team TeamType
     {
